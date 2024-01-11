@@ -74,6 +74,7 @@ class Board {
       this.pieces.push(new Piece(imageWithoutBackground, 300, 100, 96, 96, 0, 0, 96, 96));
       this.pieces.push(new Piece(imageWithoutBackground, 100, 200, 96, 96, 0, 0, 96, 96));
       this.pieces.push(new Piece(imageWithoutBackground, 100, 300, 96, 96, 0, 0, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 200, 100, 96, 96, 0, 0, 96, 96));
       // Add more pieces as needed for the board
       this.drawBoard();
     };

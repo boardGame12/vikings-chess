@@ -1,1 +1,62 @@
-/*# sourceMappingURL=style.css.map */
+#container {
+  display: grid;
+  grid-template-areas: "nav nav  nav nav nav nav nav nav nav nav nav nav" "header header header header header header header header header header header header";
+  width: 95%;
+  margin: 10px auto;
+}
+
+body {
+  background-image: url("../Images/background.png");
+}
+
+nav {
+  grid-area: nav;
+  padding: 20px;
+  text-align: center;
+  top: 10px;
+  position: sticky;
+}
+
+nav img[alt~=boat] {
+  display: block;
+  margin: 0 auto;
+  height: 50px;
+  width: auto;
+}
+
+nav img[alt~=helmet] {
+  display: block;
+  margin: 0 auto;
+  height: 50px;
+  width: auto;
+}
+
+nav span {
+  display: block;
+  margin-top: 5px;
+}
+
+nav ul {
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  list-style-type: none;
+  margin-right: 1.5em;
+}
+
+nav li a {
+  color: black;
+  text-decoration: none;
+}
+
+nav .active {
+  background-color: rgb(0, 160, 199);
+  padding: 10px;
+}
+
+header {
+  grid-area: header;
+  text-align: center;
+}/*# sourceMappingURL=style.css.map */

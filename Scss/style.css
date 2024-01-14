@@ -17,7 +17,7 @@ nav {
   padding: 20px;
   text-align: center;
   top: 10px;
-  position: sticky;
+  position: relative;
 }
 
 nav img[alt~=boat] {
@@ -76,4 +76,24 @@ section .centered {
 section .paragraph {
   margin: 2% 15%;
   font-size: 25px;
+}
+
+@media only screen and (max-width: 840px) {
+  #container {
+    display: grid;
+    grid-template-areas: "header" "nav" "section";
+    width: 100%;
+  }
+  section {
+    grid-area: section;
+    background-image: none;
+    background-repeat: no-repeat;
+    color: rgb(63, 56, 13);
+    background-color: rgba(250, 235, 215, 0.7);
+  }
+  section .centered {
+    margin-top: 5%;
+    text-align: center;
+    font-size: 50px;
+  }
 }/*# sourceMappingURL=style.css.map */

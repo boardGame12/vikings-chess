@@ -6,7 +6,7 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     grid-template-areas: 
                           "header header header header header header header header header header header header"
                           "nav nav  nav nav nav nav nav nav nav nav nav nav"
-                          "section section section section section section section section section section section section";
+                          "section section section  section section section section section section section section section";
     width: 95%;
     margin: 10px auto;
   }
@@ -64,21 +64,17 @@ $main-font: 'Snap ITC', Arial, sans-serif;
   }
   section{
     grid-area: section;
-    
+    background-image: url("../Images/scroll.png");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    height: 950px;
   }
   section .centered{
-    text-align:center;
+    margin-top: 15%;
+    text-align: center;
+    font-size: 50px;
   }
-  section img[alt~="scroll"]{
-    display: block;
-    width: 65%;
-    height: auto;
-    margin: 0.5em auto;
-    position: relative;
-  }
-  .centered{
-
-  }
-  .paragraph{
-    font-family:'Times New Roman', Times, serif;
+  section .paragraph{
+    margin: 2% 15%;
+    font-size: 25px;
   }

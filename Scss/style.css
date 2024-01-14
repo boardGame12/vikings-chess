@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/snap-itc");
 #container {
   display: grid;
-  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "section section section section section section section section section section section section";
+  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "section section section  section section section section section section section section section";
   width: 95%;
   margin: 10px auto;
 }
@@ -61,20 +61,19 @@ header {
 
 section {
   grid-area: section;
+  background-image: url("../Images/scroll.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 950px;
 }
 
 section .centered {
+  margin-top: 15%;
   text-align: center;
+  font-size: 50px;
 }
 
-section img[alt~=scroll] {
-  display: block;
-  width: 65%;
-  height: auto;
-  margin: 0.5em auto;
-  position: relative;
-}
-
-.paragraph {
-  font-family: "Times New Roman", Times, serif;
+section .paragraph {
+  margin: 2% 15%;
+  font-size: 25px;
 }/*# sourceMappingURL=style.css.map */

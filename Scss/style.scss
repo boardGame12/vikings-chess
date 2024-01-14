@@ -3,8 +3,10 @@ $main-font: 'Snap ITC', Arial, sans-serif;
 
 #container {
     display: grid;
-    grid-template-areas: "nav nav  nav nav nav nav nav nav nav nav nav nav"
-                          "header header header header header header header header header header header header";
+    grid-template-areas: 
+                          "header header header header header header header header header header header header"
+                          "nav nav  nav nav nav nav nav nav nav nav nav nav"
+                          "section section section section section section section section section section section section";
     width: 95%;
     margin: 10px auto;
   }
@@ -54,11 +56,6 @@ $main-font: 'Snap ITC', Arial, sans-serif;
   nav li a {
     color: black;
     text-decoration: none;
-  }
-  
-  nav .active {
-    background-color: rgb(0, 160, 199);
-    padding: 10px;
   }
   header{
     grid-area: header;

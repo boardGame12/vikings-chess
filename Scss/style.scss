@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/snap-itc');
+$main-font: 'Snap ITC', Arial, sans-serif;
+
 #container {
     display: grid;
     grid-template-areas: "nav nav  nav nav nav nav nav nav nav nav nav nav"
@@ -6,9 +9,11 @@
     margin: 10px auto;
   }
   body{
+    font-family: $main-font;
     background-image: url("../Images/background.png");
   }
   nav {
+    font-family: $main-font;
     grid-area: nav;
     //background-color: rgb(207,180,158);
     padding: 20px;
@@ -16,6 +21,7 @@
     top: 10px;
     position: sticky;
   }
+
   
   nav img[alt~=boat] {
     display: block;

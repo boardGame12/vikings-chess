@@ -57,4 +57,24 @@ nav li a {
 header {
   grid-area: header;
   text-align: center;
+}
+
+section {
+  grid-area: section;
+}
+
+section .centered {
+  text-align: center;
+}
+
+section img[alt~=scroll] {
+  display: block;
+  width: 65%;
+  height: auto;
+  margin: 0.5em auto;
+  position: relative;
+}
+
+.paragraph {
+  font-family: "Times New Roman", Times, serif;
 }/*# sourceMappingURL=style.css.map */

@@ -59,4 +59,15 @@ nav .active {
 header {
   grid-area: header;
   text-align: center;
+}
+
+#canvas {
+  border: 5px solid black;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
 }/*# sourceMappingURL=style.css.map */

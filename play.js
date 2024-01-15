@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const CANVAS_WIDTH = canvas.width = 600;
-const CANVAS_HEIGHT = canvas.height = 600;
+const CANVAS_WIDTH = canvas.width = 650;
+const CANVAS_HEIGHT = canvas.height = 650;
 const boardImage = new Image();
 boardImage.src = './Images/basicBoard.png';
 
@@ -46,10 +46,9 @@ class Piece {
 
 class Board {
   constructor() {
-    //this.cellOffset = CANVAS_WIDTH/ 12; 
-    //this.cellSize = (CANVAS_WIDTH - 2 * this.cellOffset) / 11; // Calculate cellSize using the offset
+  
 
-    this.cellSize = CANVAS_WIDTH / 12;
+    this.cellSize = CANVAS_WIDTH / 13;
     this.pieces = [];
     this.loadPieces();
 
@@ -69,16 +68,58 @@ class Board {
     spriteSheetImage.onload = () => {
       const targetColor = { red: 0, green: 0, blue: 5 };
       const imageWithoutBackground = this.removeBackground(spriteSheetImage, targetColor);
-      this.pieces.push(new Piece(imageWithoutBackground, 100, 100, 96, 96, 0, 0, 96, 96));
-      this.pieces.push(new Piece(imageWithoutBackground, 200, 100, 96, 96, 0, 0, 96, 96));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 100, 96, 96, 0, 0, 96, 96));
-      this.pieces.push(new Piece(imageWithoutBackground, 100, 200, 96, 96, 0, 0, 96, 96));
-      this.pieces.push(new Piece(imageWithoutBackground, 100, 300, 96, 96, 0, 0, 96, 96));
-      this.pieces.push(new Piece(imageWithoutBackground, 200, 100, 96, 96, 0, 0, 96, 96));
+
+      //center blue pieces
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 200, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 250, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 350, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 400, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 250, 350, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 350, 350, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 350, 300, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 400, 300, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 200, 300, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 300, 50, 50, 0, 676, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 350, 250, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 250, 250, 50, 50, 0, 580, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 250, 300, 50, 50, 0, 580, 96, 96));
+
+      //left yellow pieces
+      this.pieces.push(new Piece(imageWithoutBackground, 100, 300, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 50, 300, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 50, 250, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 50, 200, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 50, 350, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 50, 400, 50, 50, 0, 388, 96, 96));
+
+      // right yellow pieces
+      this.pieces.push(new Piece(imageWithoutBackground, 500, 300, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 550, 300, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 550, 250, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 550, 200, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 550, 350, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 550, 400, 50, 50, 0, 388, 96, 96));
+
+      // top yellow pieces
+      this.pieces.push(new Piece(imageWithoutBackground, 200, 50, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 250, 50, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 50, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 350, 50, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 400, 50, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 100, 50, 50, 0, 388, 96, 96));
+      
+      // bottom yellow pieces
+      this.pieces.push(new Piece(imageWithoutBackground, 250, 550, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 200, 550, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 550, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 350, 550, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 400, 550, 50, 50, 0, 388, 96, 96));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 500, 50, 50, 0, 388, 96, 96));
+
       // Add more pieces as needed for the board
       this.drawBoard();
     };
-    spriteSheetImage.src = "./Sprites/rock_sprites.png";
+    spriteSheetImage.src = "./Sprites/rbsprites.png";
   }
 
   removeBackground(image, targetColor) {
@@ -158,7 +199,5 @@ class Board {
 
 const board = new Board();
 board.drawBoard();
-
-
 
 

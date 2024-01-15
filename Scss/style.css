@@ -59,6 +59,17 @@ header {
   text-align: center;
 }
 
+#canvas {
+  border: 5px solid black;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 650px;
+}
+
 section {
   grid-area: section;
   background-image: url("../Images/scroll.png");

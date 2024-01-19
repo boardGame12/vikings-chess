@@ -89,6 +89,20 @@ section .paragraph {
   font-size: 25px;
 }
 
+section .basic {
+  margin: 2% 15%;
+  font-size: 25px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+#solid {
+  background-color: rgba(250, 235, 215, 0.7);
+  background-image: none;
+  background-size: contain;
+  width: 100%;
+  height: auto;
+}
+
 @media only screen and (max-width: 840px) {
   #container {
     display: grid;

@@ -23,6 +23,12 @@ class Piece {
     this.role = role;
   }
 
+  includesCell(cell) {
+    const pieceCellX = Math.floor(this.x / board.cellSize);
+    const pieceCellY = Math.floor(this.y / board.cellSize);
+    return pieceCellX === cell.x && pieceCellY === cell.y;
+  }
+  
   draw() {
     ctx.drawImage(
       this.img,
@@ -51,12 +57,71 @@ class Piece {
 class Board {
   constructor() {
     this.cellSize = CANVAS_WIDTH / 13;
+    this.boardSize = CANVAS_WIDTH / 13; 
     this.pieces = [];
-    this.loadPieces();
+    this.pieceLocations = []; 
+    this.lastMovedCell = { x: null, y: null }; 
     this.turn = turn;
+    this.loadPieces();
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
   }
+
+
+
+  capture() {
+    let xAdjacentCount = 0;
+    let yAdjacentCount = 0;
+    const range = 5;
+
+    
+  
+    for (let i = 0; i < this.pieces.length; i++) {
+      const currentPiece = this.pieces[i];
+  
+      for (let j = 0; j < this.pieces.length; j++) {
+        if (i !== j) {
+          const otherPiece = this.pieces[j];
+  
+          const xDiff = Math.abs(currentPiece.x - otherPiece.x);
+          const yDiff = Math.abs(currentPiece.y - otherPiece.y);
+
+  
+          if (xDiff >= 50 - range && xDiff <= 50 + range && currentPiece.role !== otherPiece.role && yDiff >= 0 - range && yDiff <= 0 + range ) {
+            xAdjacentCount++;
+          }
+          
+          if (yDiff >= 50 - range && yDiff <= 50 + range && currentPiece.role !== otherPiece.role && xDiff >= 0 - range && xDiff <= 0 + range)  {
+            yAdjacentCount++;
+          }
+        }
+      }
+  
+      if (xAdjacentCount === 2 || yAdjacentCount === 2) {
+        
+        this.pieces.splice(i, 1);
+        i--; 
+      }
+  
+      // Reset counts for the next iteration
+      xAdjacentCount = 0;
+      yAdjacentCount = 0;
+    }
+  }
+  
+
+  updatePieceLocations() {
+    // Clear the piece locations array
+    this.pieceLocations = [];
+
+    // Update the piece locations based on the current pieces array
+    this.pieces.forEach((piece) => {
+      const cellX = Math.floor(piece.x / this.cellSize);
+      const cellY = Math.floor(piece.y / this.cellSize);
+      this.pieceLocations.push({ x: cellX, y: cellY, role: piece.role });
+    });
+  }
+
 
   drawBoard() {
     ctx.clearRect(0, 0 , CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -69,7 +134,6 @@ class Board {
 
 
   validMove(selectedPiece, newX, newY) {
-  
     const deltaX = Math.abs(newX - selectedPiece.x);
     const deltaY = Math.abs(newY - selectedPiece.y);
   
@@ -79,9 +143,9 @@ class Board {
         if (piece !== selectedPiece) {
           // Check if the piece is in the same row or column
           if (
-             // Check if moving horizontally and there is a piece in the same row
+            // Check if moving horizontally and there is a piece in the same row
             (deltaX > 0 && piece.y === selectedPiece.y && piece.x > Math.min(newX, selectedPiece.x) && piece.x < Math.max(newX, selectedPiece.x)) ||
-             // Check if moving vertically and there is a piece in the same column
+            // Check if moving vertically and there is a piece in the same column
             (deltaY > 0 && piece.x === selectedPiece.x && piece.y > Math.min(newY, selectedPiece.y) && piece.y < Math.max(newY, selectedPiece.y))
           ) {
             return true; // Piece found in the way
@@ -97,6 +161,8 @@ class Board {
     return false; // move isn't horizontal or vertical
   }
   
+
+
 
 
 
@@ -213,13 +279,14 @@ class Board {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-
+  
     const clickedX = Math.floor(mouseX / this.cellSize);
     const clickedY = Math.floor(mouseY / this.cellSize);
-
+  
     const clickedPiece = this.findPiece(mouseX, mouseY);
-
+  
     if (clickedPiece && clickedPiece.role === this.turn) {
+      console.log('Selected piece:', clickedPiece);
       clickedPiece.toggleSelection();
       this.drawBoard();
     } else {
@@ -229,12 +296,15 @@ class Board {
         const newPieceY = (clickedY * this.cellSize) + (this.cellSize / 2) - (selectedPiece.height / 2);
         if (this.validMove(selectedPiece, newPieceX, newPieceY)) {
           selectedPiece.moveTo(newPieceX, newPieceY);
+           
+          this.capture();
           this.drawBoard();
           this.swapturn();
+        }
       }
     }
   }
-}
+  
 
   swapturn(){
     this.turn = (this.turn === "offense") ? "defense" : "offense";
@@ -243,5 +313,3 @@ class Board {
 
 const board = new Board();
 board.drawBoard();
-
-

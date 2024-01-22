@@ -84,9 +84,9 @@ class Board {
   gameover() {
     const kingLocation = board.findKingLocation();
     const spot1 = { x: 50, y: 50 };
-    const spot2 = { x: 600, y: 50 };
-    const spot3 = { x: 50, y: 600 };
-    const spot4 = { x: 600, y: 600 };
+    const spot2 = { x: 550, y: 50 };
+    const spot3 = { x: 50, y: 550 };
+    const spot4 = { x: 550, y: 550 };
   
     const yellowWins = this.winner === "yellow"; 
     

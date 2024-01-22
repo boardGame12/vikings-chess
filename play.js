@@ -9,7 +9,7 @@ const defense = "defense"
 const turn = "offense"
 
 class Piece {
-  constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role) {
+  constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, king = false) {
     this.img = img;
     this.x = x;
     this.y = y;
@@ -21,6 +21,7 @@ class Piece {
     this.spriteHeight = spriteHeight;
     this.isSelected = false;
     this.role = role;
+    this.king = king;
   }
 
   includesCell(cell) {
@@ -63,9 +64,47 @@ class Board {
     this.lastMovedCell = { x: null, y: null }; 
     this.turn = turn;
     this.loadPieces();
+    this.winner = null;
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
   }
+
+
+
+  findKingLocation() {
+    for (let i = 0; i < this.pieces.length; i++) {
+      const piece = this.pieces[i];
+      if (piece.king === true) {
+        return { x: piece.x, y: piece.y };
+      }
+    }
+    return null;
+  }
+
+  gameover() {
+    const kingLocation = board.findKingLocation();
+    const spot1 = { x: 50, y: 50 };
+    const spot2 = { x: 600, y: 50 };
+    const spot3 = { x: 50, y: 600 };
+    const spot4 = { x: 600, y: 600 };
+  
+    const yellowWins = this.winner === "yellow"; 
+    
+    if (yellowWins) {
+      console.log("Yellow Wins!");
+    } else if (kingLocation !== null) { 
+      if (
+        (kingLocation.x === spot1.x && kingLocation.y === spot1.y) ||
+        (kingLocation.x === spot2.x && kingLocation.y === spot2.y) ||
+        (kingLocation.x === spot3.x && kingLocation.y === spot3.y) ||
+        (kingLocation.x === spot4.x && kingLocation.y === spot4.y)
+      ) {
+        console.log("Blue Wins!");
+      }
+    }
+  }
+  
+
 
 
 
@@ -96,12 +135,16 @@ class Board {
           }
         }
       }
-  
-      if (xAdjacentCount === 2 || yAdjacentCount === 2) {
-        
+
+      if (currentPiece.king === true && xAdjacentCount === 2 && yAdjacentCount === 2) {
         this.pieces.splice(i, 1);
         i--; 
-      }
+        this.winner = yellow   
+    } else if (currentPiece.king === false && xAdjacentCount === 2 || yAdjacentCount === 2) {
+        this.pieces.splice(i, 1);
+        i--; 
+    }
+    
   
       // Reset counts for the next iteration
       xAdjacentCount = 0;
@@ -182,7 +225,7 @@ class Board {
       this.pieces.push(new Piece(imageWithoutBackground, 350, 300, 50, 50, 0, 580, 96, 96, defense));
       this.pieces.push(new Piece(imageWithoutBackground, 400, 300, 50, 50, 0, 580, 96, 96, defense));
       this.pieces.push(new Piece(imageWithoutBackground, 200, 300, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 300, 50, 50, 0, 676, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, 300, 300, 50, 50, 0, 676, 96, 96, defense,true));
       this.pieces.push(new Piece(imageWithoutBackground, 350, 250, 50, 50, 0, 580, 96, 96, defense));
       this.pieces.push(new Piece(imageWithoutBackground, 250, 250, 50, 50, 0, 580, 96, 96, defense));
       this.pieces.push(new Piece(imageWithoutBackground, 250, 300, 50, 50, 0, 580, 96, 96, defense));
@@ -300,6 +343,7 @@ class Board {
           this.capture();
           this.drawBoard();
           this.swapturn();
+          this.gameover()
         }
       }
     }

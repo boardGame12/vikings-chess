@@ -1,4 +1,5 @@
 const canvas = document.getElementById("canvas");
+const announce = document.getElementById("announce");
 const ctx = canvas.getContext("2d");
 const CANVAS_WIDTH = canvas.width = 650;
 const CANVAS_HEIGHT = canvas.height = 650;
@@ -91,6 +92,7 @@ class Board {
     const yellowWins = this.winner === "yellow"; 
     
     if (yellowWins) {
+      announce.innerHTML = "Yellow Wins!"
       console.log("Yellow Wins!");
     } else if (kingLocation !== null) { 
       if (
@@ -99,6 +101,7 @@ class Board {
         (kingLocation.x === spot3.x && kingLocation.y === spot3.y) ||
         (kingLocation.x === spot4.x && kingLocation.y === spot4.y)
       ) {
+        announce.innerHTML = "Blue Wins!";
         console.log("Blue Wins!");
       }
     }

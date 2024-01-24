@@ -115,6 +115,7 @@ class Board {
     let xAdjacentCount = 0;
     let yAdjacentCount = 0;
     const range = 5;
+    const kingLocation = board.findKingLocation();
 
     
   
@@ -139,11 +140,24 @@ class Board {
         }
       }
 
+      if((kingLocation.x === 50 || kingLocation.x === 550 || kingLocation.y === 50|| kingLocation.y === 550) && currentPiece.king === true && xAdjacentCount === 2 && yAdjacentCount === 1){
+        this.pieces.splice(i, 1);
+        i--; 
+        this.winner = "yellow"  
+      }
+
+      if((kingLocation.x === 50 || kingLocation.x === 550 || kingLocation.y === 50|| kingLocation.y === 550) && currentPiece.king === true && xAdjacentCount === 1 && yAdjacentCount === 2){
+        this.pieces.splice(i, 1);
+        i--; 
+        this.winner = "yellow"  
+
+      }
+
       if (currentPiece.king === true && xAdjacentCount === 2 && yAdjacentCount === 2) {
         this.pieces.splice(i, 1);
         i--; 
         this.winner = "yellow"   
-    } else if (currentPiece.king === false && xAdjacentCount === 2 || yAdjacentCount === 2) {
+    } else if ((currentPiece.king === false && xAdjacentCount === 2) || (currentPiece.king === false && yAdjacentCount === 2)) {
         this.pieces.splice(i, 1);
         i--; 
     }

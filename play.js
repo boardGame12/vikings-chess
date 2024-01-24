@@ -129,11 +129,11 @@ class Board {
           const yDiff = Math.abs(currentPiece.y - otherPiece.y);
 
   
-          if (xDiff >= 50 - range && xDiff <= 50 + range && currentPiece.role !== otherPiece.role && yDiff >= 0 - range && yDiff <= 0 + range ) {
+          if (xDiff >= 50 - range && xDiff <= 50 + range && currentPiece.role !== otherPiece.role && yDiff >= 0 - range && yDiff <= 0 + range && otherPiece.king === false) {
             xAdjacentCount++;
           }
           
-          if (yDiff >= 50 - range && yDiff <= 50 + range && currentPiece.role !== otherPiece.role && xDiff >= 0 - range && xDiff <= 0 + range)  {
+          if (yDiff >= 50 - range && yDiff <= 50 + range && currentPiece.role !== otherPiece.role && xDiff >= 0 - range && xDiff <= 0 + range && otherPiece.king === false)  {
             yAdjacentCount++;
           }
         }
@@ -142,7 +142,7 @@ class Board {
       if (currentPiece.king === true && xAdjacentCount === 2 && yAdjacentCount === 2) {
         this.pieces.splice(i, 1);
         i--; 
-        this.winner = yellow   
+        this.winner = "yellow"   
     } else if (currentPiece.king === false && xAdjacentCount === 2 || yAdjacentCount === 2) {
         this.pieces.splice(i, 1);
         i--; 
@@ -199,9 +199,16 @@ class Board {
         }
         return false;
       });
+
+      // Check if the new position is not occupied by another piece
+      const newPositionOccupied = this.pieces.some(piece => piece.x === newX && piece.y === newY);
+
+      const validXPosition = newX !== 0 && newX !== 600;
+      const validYPosition = newY !== 0 && newY !== 600;
+
   
       // Return true only if there are no obstacles
-      return !pieceIntheWay;
+      return !pieceIntheWay && !newPositionOccupied && validXPosition && validYPosition;
     }
   
     return false; // move isn't horizontal or vertical

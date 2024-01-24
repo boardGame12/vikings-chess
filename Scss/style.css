@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/snap-itc");
 #container {
   display: grid;
-  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "section section section  section section section section section section section section section";
+  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerOne PlayerOne PlayerOne PlayerOne PlayerTwo PlayerTwo PlayerTwo PlayerTwo" "Difficulty Difficulty Difficulty Easy Easy Easy Medium Medium Medium Hard Hard Hard" "section section section  section section section section section section section section section";
   width: 95%;
   margin: 10px auto;
 }
@@ -57,6 +57,7 @@ nav li a {
 header {
   grid-area: header;
   text-align: center;
+  font-size: 35px;
 }
 
 #canvas {
@@ -93,6 +94,71 @@ section .basic {
   margin: 2% 15%;
   font-size: 25px;
   font-family: "Times New Roman", Times, serif;
+}
+
+.PlayerNumber {
+  grid-area: PlayerNumber;
+}
+
+.btn {
+  background: #452e2e;
+  background-image: linear-gradient(to bottom, #452e2e, #633f3f);
+  border-radius: 60px;
+  font-family: "Snap ITC", Arial, sans-serif;
+  color: #ffffff;
+  font-size: 26px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #000000;
+  text-decoration: none;
+}
+
+.btn1 {
+  background: #452e2e;
+  background-image: linear-gradient(to bottom, rgb(145, 111, 111), rgb(107, 81, 81));
+  border-radius: 60px;
+  font-family: "Snap ITC", Arial, sans-serif;
+  color: #ffffff;
+  font-size: 26px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn1:hover {
+  background: #000000;
+  text-decoration: none;
+}
+
+.PlayerOne {
+  grid-area: PlayerOne;
+  margin-top: 100px;
+}
+
+.PlayerTwo {
+  grid-area: PlayerTwo;
+}
+
+.Difficulty {
+  grid-area: Difficulty;
+}
+
+.Easy {
+  grid-area: Easy;
+}
+
+.Medium {
+  grid-area: Medium;
+}
+
+.Hard {
+  grid-area: Hard;
 }
 
 #solid {

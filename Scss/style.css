@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/snap-itc");
 #container {
   display: grid;
-  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerOne PlayerOne PlayerOne PlayerOne PlayerTwo PlayerTwo PlayerTwo PlayerTwo" "Difficulty Difficulty Difficulty Easy Easy Easy Medium Medium Medium Hard Hard Hard" "section section section  section section section section section section section section section";
+  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerOne PlayerOne PlayerOne PlayerOne PlayerTwo PlayerTwo PlayerTwo PlayerTwo" "Difficulty Difficulty Difficulty Easy Easy Easy Medium Medium Medium Hard Hard Hard" "Register Register Register Register Play Play Play Play sigin sigin sigin sigin" "section section section  section section section section section section section section section";
   width: 95%;
   margin: 10px auto;
 }
@@ -12,6 +12,7 @@ body {
 }
 
 nav {
+  display: grid;
   font-family: "Snap ITC", Arial, sans-serif;
   grid-area: nav;
   padding: 20px;
@@ -55,6 +56,7 @@ nav li a {
 }
 
 header {
+  display: grid;
   grid-area: header;
   text-align: center;
   font-size: 35px;
@@ -72,32 +74,29 @@ header {
 }
 
 section {
+  display: grid;
   grid-area: section;
   background-image: url("../Images/scroll.png");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 950px;
 }
 
 section .centered {
   margin-top: 15%;
+  margin-bottom: 5%;
   text-align: center;
   font-size: 50px;
 }
 
 section .paragraph {
-  margin: 2% 15%;
+  margin: 0.7% 15%;
   font-size: 25px;
 }
 
 section .basic {
-  margin: 2% 15%;
+  margin: 0.7% 15%;
   font-size: 25px;
   font-family: "Times New Roman", Times, serif;
-}
-
-.PlayerNumber {
-  grid-area: PlayerNumber;
 }
 
 .btn {
@@ -136,29 +135,64 @@ section .basic {
   text-decoration: none;
 }
 
+.PlayerNumber {
+  display: grid;
+  grid-area: PlayerNumber;
+  margin: 80px;
+}
+
 .PlayerOne {
+  display: grid;
   grid-area: PlayerOne;
-  margin-top: 100px;
+  margin: 80px;
 }
 
 .PlayerTwo {
+  display: grid;
   grid-area: PlayerTwo;
+  margin: 80px;
 }
 
 .Difficulty {
+  display: grid;
   grid-area: Difficulty;
+  margin: 80px;
 }
 
 .Easy {
+  display: grid;
   grid-area: Easy;
+  margin: 80px;
 }
 
 .Medium {
+  display: grid;
   grid-area: Medium;
+  margin: 80px;
 }
 
 .Hard {
+  display: grid;
   grid-area: Hard;
+  margin: 80px;
+}
+
+.Register {
+  display: grid;
+  grid-area: Register;
+  margin: 80px;
+}
+
+.Play {
+  display: grid;
+  grid-area: Play;
+  margin: 80px;
+}
+
+.sigin {
+  display: grid;
+  grid-area: sigin;
+  margin: 80px;
 }
 
 #solid {

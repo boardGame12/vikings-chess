@@ -18,7 +18,7 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     background-image: url("../Images/background.png");
   }
   nav {
-    display: grid;
+    //display: grid;
     font-family: $main-font;
     grid-area: nav;
     padding: 20px;
@@ -61,7 +61,7 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     text-decoration: none;
   }
   header{
-    display: grid;
+    //display: grid;
     grid-area: header;
     text-align: center;
     font-size: 35px;
@@ -78,11 +78,12 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     height: 650px;
   }
   section{
-    display: grid;
+    //display: grid;
     grid-area: section;
     background-image: url("../Images/scroll.png");
     background-repeat: no-repeat;
     background-size: cover; 
+    height: 970px;
   }
   section .centered{
     margin-top: 15%;
@@ -149,7 +150,7 @@ $main-font: 'Snap ITC', Arial, sans-serif;
 
   }
   .PlayerTwo{
-    display: grid;
+   display: grid;
     grid-area: PlayerTwo;
     margin:80px;
   }

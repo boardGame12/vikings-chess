@@ -67,18 +67,32 @@ class Board {
     this.loadPieces();
     this.winner = null;
     this.lastMovedPieceIndex = 0; 
+    this.running = true;
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
 
     this.run();
   }
 
-  run(){
-  console.log("running...")
-  this.drawBoard();
-  if(this.turn === offense){
-    this.ComputerMove();
-    }
+  run() {
+    const gameLoop = () => {
+      if (this.running) {
+        this.drawBoard();
+  
+        if (this.turn === "offense") {
+          this.ComputerMove();
+          //this.capture();
+        }
+  
+        // Call gameLoop again after a short delay
+        setTimeout(gameLoop, 100); // Adjust the delay time as needed
+        
+        
+      }
+    };
+  
+    
+    gameLoop();
   }
 
   findKingLocation() {
@@ -383,13 +397,15 @@ ComputerMove() {
   for (let i = this.lastMovedPieceIndex; i < this.pieces.length; i++) {
     const piece = this.pieces[i];
     if (piece.role === 'offense') {
-      for (let j = 50; j <= 550; j += 50) {
+      for (let j = 50; j <= 400; j += 50) {
         for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
           const newX = kingLocation.x + dx * j;
           const newY = kingLocation.y + dy * j;
           if (this.validMove(piece, newX, newY)) {
             piece.moveTo(newX, newY);
+            this.capture();
             this.swapturn();
+            this.gameover();
             this.lastMovedPieceIndex = i + 1; // Update the last moved piece index
             moved = true;
             return;
@@ -436,8 +452,8 @@ ComputerMove() {
           this.capture();
           this.drawBoard();
           this.swapturn();
-          this.gameover()
-          this.run();
+          this.gameover();
+          //this.run();
         }
       }
     }

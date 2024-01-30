@@ -63,14 +63,23 @@ class Board {
     this.pieces = [];
     this.pieceLocations = []; 
     this.lastMovedCell = { x: null, y: null }; 
-    this.turn = turn;
+    this.turn = turn; 
     this.loadPieces();
     this.winner = null;
+    this.lastMovedPieceIndex = 0; 
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+
+    this.run();
   }
 
-
+  run(){
+  console.log("running...")
+  this.drawBoard();
+  if(this.turn === offense){
+    this.ComputerMove();
+    }
+  }
 
   findKingLocation() {
     for (let i = 0; i < this.pieces.length; i++) {
@@ -342,6 +351,66 @@ class Board {
     return null;
   }
 
+  getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  getRandomPiece(role = "offense") {
+    let currentPiece = null;
+    while (!currentPiece || currentPiece.role !== role) {
+        const pieceNumber = this.getRandomInt(this.pieces.length - 1);
+        currentPiece = this.pieces[pieceNumber];
+    }
+    return currentPiece;
+}
+
+
+  // Function to calculate distance between two points (x1, y1) and (x2, y2) pythagorean theorem
+  distance(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
+
+  
+
+ComputerMove() {
+  const kingLocation = this.findKingLocation();
+  console.log("Computer's Move");
+
+
+  let moved = false; // Flag to track if any piece was moved
+
+  for (let i = this.lastMovedPieceIndex; i < this.pieces.length; i++) {
+    const piece = this.pieces[i];
+    if (piece.role === 'offense') {
+      for (let j = 50; j <= 550; j += 50) {
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const newX = kingLocation.x + dx * j;
+          const newY = kingLocation.y + dy * j;
+          if (this.validMove(piece, newX, newY)) {
+            piece.moveTo(newX, newY);
+            this.swapturn();
+            this.lastMovedPieceIndex = i + 1; // Update the last moved piece index
+            moved = true;
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  if (!moved) {
+    console.log("Couldn't Find a Valid Move");
+    this.lastMovedPieceIndex = 0;
+    console.log(this.pieces);
+    this.swapturn();
+  }
+}
+
+
+
+
+
   handleMouseDown(e) {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
@@ -368,6 +437,7 @@ class Board {
           this.drawBoard();
           this.swapturn();
           this.gameover()
+          this.run();
         }
       }
     }

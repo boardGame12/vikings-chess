@@ -6,9 +6,11 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     grid-template-areas: 
                           "header header header header header header header header header header header header"
                           "nav nav  nav nav nav nav nav nav nav nav nav nav"
+                          "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration"
                           "section section section  section section section section section section section section section"
                           "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty"
-                          "register register register register register register register register register register register register";
+                          "register register register register register register register register register register register register"
+                          "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
 
     width: 95%;
     margin: 10px auto;
@@ -118,6 +120,24 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     width: 300px;
     margin: 10px;
   }
+  .btn3 {
+    background: #452e2e;
+    background-image: linear-gradient(to bottom, #452e2e, #633f3f);
+    border-radius: 60px;
+    font-family: $main-font;
+    color: #ffffff;
+    font-size: 26px;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    margin: 10px;
+  }
+  .btn3:hover {
+    background: #000000;
+    text-decoration: none;
+  }
   
   .btn:hover {
     background: #000000;
@@ -188,6 +208,32 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     text-align: center;
 
   }
+.registeration{
+  grid-area: registeration;
+  font-size: 20px;
+}
+.regiserForm {
+  grid-area: regiserForm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(250, 235, 215,.7);
+  padding: 50px;
+}
+.regiserForm label{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.regiserForm input{
+  width: 400px;
+  height: 30px;
+}
+.regiserForm button{
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+}
+
   /*.PlayerNumber {
     display: grid;
     grid-area: PlayerNumber;
@@ -260,10 +306,12 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     grid-template-areas:
     "header"
     "nav"
+    "register"
     "section"
     "PlayerNumber"
     "Difficulty"
-    "register";
+    "register"
+    'regiserForm';
     width: 100%;
     }
     section{

@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/snap-itc");
 #container {
   display: grid;
-  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "section section section  section section section section section section section section section" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty" "register register register register register register register register register register register register";
+  grid-template-areas: "header header header header header header header header header header header header" "nav nav  nav nav nav nav nav nav nav nav nav nav" "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration" "section section section  section section section section section section section section section" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty" "register register register register register register register register register register register register" "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
   width: 95%;
   margin: 10px auto;
 }
@@ -113,6 +113,26 @@ section .basic {
   margin: 10px;
 }
 
+.btn3 {
+  background: #452e2e;
+  background-image: linear-gradient(to bottom, #452e2e, #633f3f);
+  border-radius: 60px;
+  font-family: "Snap ITC", Arial, sans-serif;
+  color: #ffffff;
+  font-size: 26px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  margin: 10px;
+}
+
+.btn3:hover {
+  background: #000000;
+  text-decoration: none;
+}
+
 .btn:hover {
   background: #000000;
   text-decoration: none;
@@ -185,6 +205,35 @@ section .basic {
   text-align: center;
 }
 
+.registeration {
+  grid-area: registeration;
+  font-size: 20px;
+}
+
+.regiserForm {
+  grid-area: regiserForm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(250, 235, 215, 0.7);
+  padding: 50px;
+}
+
+.regiserForm label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.regiserForm input {
+  width: 400px;
+  height: 30px;
+}
+
+.regiserForm button {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 /*.PlayerNumber {
    display: grid;
    grid-area: PlayerNumber;
@@ -254,7 +303,7 @@ section .basic {
 @media only screen and (max-width: 840px) {
   #container {
     display: grid;
-    grid-template-areas: "header" "nav" "section" "PlayerNumber" "Difficulty" "register";
+    grid-template-areas: "header" "nav" "register" "section" "PlayerNumber" "Difficulty" "register" "regiserForm";
     width: 100%;
   }
   section {

@@ -306,10 +306,12 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     grid-template-areas:
     "header"
     "nav"
+    "register"
     "section"
     "PlayerNumber"
     "Difficulty"
-    "register";
+    "register"
+    'regiserForm';
     width: 100%;
     }
     section{

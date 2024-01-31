@@ -303,7 +303,7 @@ section .basic {
 @media only screen and (max-width: 840px) {
   #container {
     display: grid;
-    grid-template-areas: "header" "nav" "section" "PlayerNumber" "Difficulty" "register";
+    grid-template-areas: "header" "nav" "register" "section" "PlayerNumber" "Difficulty" "register" "regiserForm";
     width: 100%;
   }
   section {

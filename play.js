@@ -5,9 +5,9 @@ const CANVAS_WIDTH = canvas.width = 650;
 const CANVAS_HEIGHT = canvas.height = 650;
 const boardImage = new Image();
 boardImage.src = './Images/basicBoard.png';
-const offense = "offense"
-const defense = "defense"
-const turn = "offense"
+const offense = "offense";
+const defense = "defense";
+const turn = "offense";
 
 class Piece {
   constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, king = false) {
@@ -240,8 +240,8 @@ class Board {
       // Check if the new position is not occupied by another piece
       const newPositionOccupied = this.pieces.some(piece => piece.x === newX && piece.y === newY);
 
-      const validXPosition = newX !== 0 && newX !== 600;
-      const validYPosition = newY !== 0 && newY !== 600;
+      const validXPosition = newX > 0 && newX < 600;
+      const validYPosition = newY > 0 && newY < 600;
 
   
       // Return true only if there are no obstacles
@@ -397,7 +397,7 @@ ComputerMove() {
   for (let i = this.lastMovedPieceIndex; i < this.pieces.length; i++) {
     const piece = this.pieces[i];
     if (piece.role === 'offense') {
-      for (let j = 50; j <= 400; j += 50) {
+      for (let j = 50; j <= 200; j += 50) {
         for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
           const newX = kingLocation.x + dx * j;
           const newY = kingLocation.y + dy * j;

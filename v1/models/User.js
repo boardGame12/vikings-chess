@@ -5,15 +5,10 @@ import { SECRET_ACCESS_TOKEN } from '../config/index.js';
 
 const UserSchema = new mongoose.Schema(
     {
-        first_name:{
+        user_name:{
             type: String,
-            required: "Your firstname is required",
+            required: "Your user name is required",
             max: 25,
-        },
-        last_name: {
-            type: String,
-            required: "Your lastname is required",
-            max:25,
         },
         email:{
             type: String,

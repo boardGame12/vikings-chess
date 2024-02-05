@@ -5,12 +5,11 @@ import Blacklist from "../models/blacklist.js";
 export async function Register(req, res) {
     // get required variables from request body
     // using es6 object destructing
-    const { first_name, last_name, email, password } = req.body;
+    const { user_name, email, password } = req.body;
     try {
         // create an instance of a user
         const newUser = new User({
-            first_name,
-            last_name,
+            user_name,
             email,
             password,
         });
@@ -21,6 +20,14 @@ export async function Register(req, res) {
                 status: "failed",
                 data: [],
                 message: "It seems you already have an account, please log in instead.",
+            });
+        // Check if user already exists
+        const existingUser_name = await User.findOne({ user_name });
+        if (existingUser_name)
+            return res.status(400).json({
+                status: "failed",
+                data: [],
+                message: "This user name is already taken. Please choose another.",
             });
         const savedUser = await newUser.save(); // save new user into the database
         const { role, ...user_data } = savedUser._doc;

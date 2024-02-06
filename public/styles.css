@@ -1,0 +1,58 @@
+.sprite-button {
+    width: 180px;
+    height: 100px;
+    background-image: url('./Sprites/VikingsItems.png');
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(216, 168, 110);
+  }
+  
+  .navbar {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 150px;
+    padding: 10px; 
+    flex-direction: row; 
+    background-color: rgb(216, 168, 110);
+
+  }
+  #Home {
+    background-image: url('Images/ship.png');
+    background-size: contain;
+    
+  }
+  
+  p{
+    text-align: center;
+  }
+
+  #Rules {
+    background-image: url('Images/RightSizeHelmet.png');
+    background-size: 300% ;
+    background-position-x: 5%;
+    background-position-y: 12%;
+  
+    
+  }
+  
+  #Play {
+    background-image: url('Images/ship.png');
+    background-size: contain;
+  }
+  
+  #About {
+    background-image: url('Images/RightSizeHelmet.png');
+    background-size: 300% ;
+    background-position-x:5%;
+    background-position-y: 12%;
+  
+  }
+  
+  #Login {
+    background-image: url('Images/ship.png');
+    background-size: contain;
+  }
+

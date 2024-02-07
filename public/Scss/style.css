@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/snap-itc");
 #container {
   display: grid;
-  grid-template-areas: "header header header header header header header header header header header logout" "nav nav  nav nav nav nav nav nav nav nav nav nav" "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration" "section section section  section section section section section section section section section" "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald" "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty" "register register register register register register register register register register register register" "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
+  grid-template-areas: "usernameDisplay header header header header header header header header header header logout" "nav nav  nav nav nav nav nav nav nav nav nav nav" "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration" "section section section  section section section section section section section section section" "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald" "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald" "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty" "register register register register register register register register register register register register" "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
   width: 95%;
   margin: 10px auto;
 }
@@ -289,6 +289,10 @@ section .basic {
   width: 150px;
   margin: 10px;
   font-family: "Times New Roman", Times, serif;
+}
+
+#usernameDisplay {
+  grid-area: usernameDisplay;
 }
 
 .popup {

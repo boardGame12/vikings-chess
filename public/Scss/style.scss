@@ -7,7 +7,7 @@ $white:  rgb(255, 255, 255);
 #container {
     display: grid;
     grid-template-areas: 
-                          "header header header header header header header header header header header logout"
+                          "usernameDisplay header header header header header header header header header header logout"
                           "nav nav  nav nav nav nav nav nav nav nav nav nav"
                           "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration"
                           "section section section  section section section section section section section section section"
@@ -19,7 +19,8 @@ $white:  rgb(255, 255, 255);
 
     width: 95%;
     margin: 10px auto;
-  }
+}
+
   body{
     font-family: $main-font;
     background-image: url("../Images/background.png");
@@ -289,6 +290,9 @@ $white:  rgb(255, 255, 255);
   width: 150px;
   margin: 10px;
   font-family: 'Times New Roman', Times, serif;
+}
+#usernameDisplay{
+  grid-area: usernameDisplay;
 }
 .popup {
   display: none;

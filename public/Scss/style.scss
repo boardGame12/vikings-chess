@@ -1,20 +1,26 @@
 @import url('https://fonts.cdnfonts.com/css/snap-itc');
 $main-font: 'Snap ITC', Arial, sans-serif;
-
+$lightbrown: rgba(250, 235, 215,.7);
+$medbrown: rgba(251, 219, 178, 0.7);
+$darkbrown: #452e2e;
+$white:  rgb(255, 255, 255);
 #container {
     display: grid;
     grid-template-areas: 
-                          "header header header header header header header header header header header header"
+                          "usernameDisplay header header header header header header header header header header logout"
                           "nav nav  nav nav nav nav nav nav nav nav nav nav"
                           "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration"
                           "section section section  section section section section section section section section section"
+                          "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald"
+                          "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald"
                           "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty"
                           "register register register register register register register register register register register register"
                           "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
 
     width: 95%;
     margin: 10px auto;
-  }
+}
+
   body{
     font-family: $main-font;
     background-image: url("../Images/background.png");
@@ -107,11 +113,11 @@ $main-font: 'Snap ITC', Arial, sans-serif;
  
   
   .btn {
-    background: #452e2e;
+    background: $darkbrown;
     background-image: linear-gradient(to bottom, #452e2e, #633f3f);
     border-radius: 60px;
     font-family: $main-font;
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     font-size: 26px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
@@ -121,11 +127,11 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     margin: 10px;
   }
   .btn3 {
-    background: #452e2e;
+    background: $darkbrown;
     background-image: linear-gradient(to bottom, #452e2e, #633f3f);
     border-radius: 60px;
     font-family: $main-font;
-    color: #ffffff;
+    color: $white;
     font-size: 26px;
     padding: 5px 10px 5px 10px;
     text-decoration: none;
@@ -144,11 +150,11 @@ $main-font: 'Snap ITC', Arial, sans-serif;
     text-decoration: none;
   }
   .btn1 {
-    background: #452e2e;
+    background: $darkbrown;
     background-image: linear-gradient(to bottom, rgb(145,111,111),rgb(107, 81, 81));
     border-radius: 60px;
     font-family: $main-font;
-    color: #ffffff;
+    color: $white;
     font-size: 26px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
@@ -217,7 +223,7 @@ $main-font: 'Snap ITC', Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(250, 235, 215,.7);
+  background-color: $lightbrown;
   padding: 50px;
 }
 .regiserForm label{
@@ -233,7 +239,104 @@ $main-font: 'Snap ITC', Arial, sans-serif;
   margin-bottom: 5px;
 
 }
+.ruth{
+  display: grid;
+  grid-area: ruth;
+  background-color: $white;
+  color: $darkbrown;
+  margin: 10px 10px 10px 10px;
+  text-align: center;
+}
+.donald{
+  display: grid;
+  grid-area: donald;
+  background-color: $darkbrown;
+  color: $white;
+  margin: 10px 10px 10px 10px;
+  text-align: center;
+}
+.aboutDonald{
+  display: grid;
+  grid-area: aboutDonald;
+  margin: 10px 10px 10px 10px;
+  background-color: $lightbrown;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 10px 15px;
+  font-size: 25px;
+}
+.aboutRuth{
+  display: grid;
+  grid-area: aboutRuth;
+  margin: 10px 10px 10px 10px;
+  background-color: $medbrown;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 10px 15px;
+  font-size: 25px;
+}
+.logout{
+  grid-area: logout;
+  width: 50px;
+  height: 50px;
+  background: $darkbrown;
+  background-image: linear-gradient(to bottom, #452e2e, #633f3f);
+  border-radius: 60px;
+  font-family: $main-font;
+  color: $white;
+  font-size: 26px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  margin: 10px;
+  font-family: 'Times New Roman', Times, serif;
+}
+#usernameDisplay{
+  grid-area: usernameDisplay;
+}
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $lightbrown;
+  padding: 100px;
+  font-size: 30px;
+}
+.popup-content input {
+  width: 400px;
+  height: 80px;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+.close {
+  color: #000000;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
   /*.PlayerNumber {
     display: grid;
     grid-area: PlayerNumber;
@@ -302,33 +405,91 @@ $main-font: 'Snap ITC', Arial, sans-serif;
 
   @media only screen and (max-width: 840px) {
     #container{
-    display: grid;
-    grid-template-areas:
-    "header"
-    "nav"
-    "register"
-    "section"
-    "PlayerNumber"
-    "Difficulty"
-    "register"
-    'regiserForm';
-    width: 100%;
+        display: grid;
+        grid-template-areas:
+            "header logout"
+            "nav nav"
+            "section section"
+            "PlayerNumber PlayerNumber"
+            "Difficulty Difficulty"
+            "registeration registeration"
+            "register register"
+            "regiserForm regiserForm "
+            "ruth ruth"
+            "aboutRuth aboutRuth"
+            "donald donald"
+            "aboutDonald aboutDonald";
+        width: 100%;
     }
     section{
-      grid-area: section;
-      background-image: none;
-      background-repeat: no-repeat;
-      color: rgb(63, 56, 13);
-      background-color: rgba(250, 235, 215,.7);
+        grid-area: section;
+        background-image: none;
+        background-repeat: no-repeat;
+        color: rgb(63, 56, 13);
+        background-color: rgba(250, 235, 215,.7);
     }
     section .centered{
-      margin-top: 5%;
-      text-align: center;
-      font-size: 50px;
+        margin-top: 5%;
+        text-align: center;
+        font-size: 50px;
     }
+    nav{
+        grid-area: nav;
+    }
+    .rock{
+      display: none;
+    }
+    .registeration{
+      grid-area: registeration;
+    }
+    .register{
+        grid-area: register;
+    }
+    .PlayerNumber{
+        grid-area: PlayerNumber;
+    }
+    .ruth{
+        display: grid;
+        grid-area: ruth;
+    }
+    .aboutRuth{
+        display: grid;
+        grid-area: aboutRuth;
+    }
+    .donald{
+        display: grid;
+        grid-area: donald;
+    }
+    .aboutDonald{
+        display: grid;
+        grid-area: aboutDonald;
+    }
+    .regiserForm {
+      grid-area: regiserForm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: $lightbrown;
+      padding: 50px;
+    }
+    .regiserForm label{
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .regiserForm input{
+      width: 400px;
+      height: 30px;
+    }
+    .regiserForm button{
+      margin-top: 10px;
+      margin-bottom: 5px;
     
-  
+    }
+    .logout{
+      grid-area: logout;
+    }
 }
+
 #announce{text-align: center;}
 
 /*@media only screen and (min-width: 1921px){

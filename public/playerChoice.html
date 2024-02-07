@@ -9,8 +9,11 @@
 <body>
   <div id="container">
     <header>
-      <h1>Hnefatafl </h1>
+      <h1>Hnefatafl</h1>
+      
     </header>
+    <div id="usernameDisplay"></div>
+    <button class="logout" type="button">Logout</button>
     <nav>
       <ul>
         <li>
@@ -44,7 +47,7 @@
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="creator.html">
             <img src="Images/helmet.png" alt="helmet">
             <span>Creator</span>
           </a>
@@ -61,20 +64,157 @@
 
         </article>
         <article class="Difficulty">
-          <h3>Diffaculy level</h3>
+          <h3>Difficulty level</h3>
             <button class="btn1">One 1</button>
             <button class="btn1">Two 2</button>
             <button class="btn1">Two 2</button>
         </article>
         <article class="register">
-          <button class="btn"><a href="register.html">Register</a></button>
-          <button class="btn"><a href="play.html">Play</a></button>
-          <button class="btn">Sign In</button>
-      </article>
-      
+          <a href="register.html" class="btn">Register</a>
+          <a href="play.html" class="btn">Play</a>
+          <button class="btn" id="openPopupBtn">Sign In</button>
+        </article>
+        
+        
+        <div id="popupForm" class="popup">
+          <form action="#" class="popup-content" id="loginForm">
+            <span class="close" id="closePopupBtn">&times;</span>
+            <h2>Log-in</h2>
+            <input type="text" placeholder="Enter your email" id="loginEmail" required>
+            <input type="password" placeholder="Enter your password" id="loginPassword" required>
+            <button class="btn3" type="submit">Submit</button>
+            <p id="loginMessage"></p> 
+          </form>
+        </div>
 </div>
-
-
-  <script src=""></script>
 </body>
+<script>
+   let popup = document.querySelector("#popupForm");
+        let openBtn = document.querySelector("#openPopupBtn");
+        let closeBtn = document.querySelector("#closePopupBtn");
+
+        openBtn.onclick = function() {
+            popup.style.display = "block";
+        }
+        closeBtn.onclick = function() {
+            popup.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        }
+
+        // Function to fetch user_name and update the usernameDisplay div
+        function fetchUserNameAndUpdate() {
+            // Make a GET request to fetch the user_name after successful login
+            fetch("/v1/user")
+                .then(response => {
+                    // Check if the response is OK (status code 200)
+                    if (response.ok) {
+                        // Parse the JSON response
+                        return response.json();
+                    } else {
+                        // If response is not OK, throw an error
+                        throw new Error("Failed to fetch user data");
+                    }
+                })
+                .then(data => {
+                    // Extract the user_name from the response data
+                    const userName = data.user_name;
+                    // Check if username exists
+                    if (userName) {
+                        // Update the UI with the user_name
+                        console.log("User Name:", userName);
+                        document.getElementById("usernameDisplay").textContent = userName;
+                    } else {
+                        console.log("No user name found");
+                    }
+                })
+                .catch(error => {
+                    // Log any errors that occur during the process
+                    console.error("Error:", error.message);
+                });
+        }
+
+        // Add event listener for form submission
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get email and password from form inputs
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+
+            // Data to be sent in the POST request
+            const data = {
+                email: email,
+                password: password
+            };
+
+            try {
+                // Send POST request to /v1/auth/login
+                const response = await fetch("/v1/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // Handle successful login
+                    console.log("Login successful");
+                    document.getElementById("loginMessage").textContent = "Login successful";
+
+                    // Call the function to fetch user name and update UI
+                    fetchUserNameAndUpdate();
+
+                } else {
+                    // Handle failed login
+                    console.error("Login failed:", response.statusText);
+                    document.getElementById("loginMessage").textContent = "Login failed: " + response.statusText;
+                }
+            } catch (error) {
+                // Handle network or other errors
+                console.error("Error during login:", error);
+                document.getElementById("loginMessage").textContent = "Error during login: " + error.message;
+            }
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+  var logoutButton = document.querySelector(".logout");
+  logoutButton.addEventListener("click", function() {
+   
+    logout();
+  });
+});
+
+
+    function logout() {
+    fetch('v1/auth/logout', {
+        method: 'GET',
+        credentials: 'same-origin', // include cookies in the request if any
+    })
+    .then(response => {
+        if (response.ok) {
+          document.getElementById("usernameDisplay").textContent = "";
+            // If logout was successful, redirect to the login page or perform any other action
+            console.log("logged out successfully")
+        } else {
+            console.error('Logout failed');
+        }
+    })
+    .catch(error => {
+        // Handle network errors
+        console.error('Network error:', error);
+    });
+}
+        // Call the fetchUserNameAndUpdate function when the page loads
+        window.onload = function() {
+            fetchUserNameAndUpdate();
+        };
+
+  </script>
+  
 </html>

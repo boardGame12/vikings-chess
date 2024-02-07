@@ -1,4 +1,6 @@
-async function registerUser() {
+async function registerUser(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
     const email = document.getElementById('email').value;
     const user_name = document.getElementById("userName").value;
     const password = document.getElementById('pwd').value;
@@ -20,28 +22,27 @@ async function registerUser() {
             body: JSON.stringify(data)
         });
 
+        let responseMessage;
+
         if (response.ok) {
-            
-            const responseData = await response.json();
-            console.log('Registration successful:', responseData);
-           
+            responseMessage = 'Registration successful:';
         } else {
-            
-            let errorMessage = 'Registration failed: ' + response.statusText;
-            
-            try {
-                const errorData = await response.json();
-                if (errorData && errorData.message) {
-                    errorMessage += ' - ' + errorData.message;
-                }
-            } catch (error) {
-                
-            }
-            console.error(errorMessage);
-            
+            responseMessage = 'Registration failed:';
         }
+
+        try {
+            const responseData = await response.json();
+            if (responseData && responseData.message) {
+                responseMessage += ' ' + responseData.message;
+            }
+        } catch (error) {}
+
+        console.log(responseMessage);
+        document.getElementById('registerAnnounce').textContent = responseMessage;
+
     } catch (error) {
         console.error('Error occurred during registration:', error);
+        document.getElementById('registerAnnounce').textContent = 'Error occurred during registration: ' + error.message;
     }
 }
 

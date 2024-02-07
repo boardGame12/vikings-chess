@@ -82,9 +82,12 @@ export async function Login(req, res) {
         };
         const token = user.generateAccessJWT(); // generate session token for user
         res.cookie("SessionID", token, options); // set the token to response header, so that the client sends it back on each subsequent request
+        
+        // Include user_name in the response
         res.status(200).json({
             status: "success",
             message: "You have successfully logged in.",
+            user_name: user.user_name, // Include the user_name in the response
         });
     } catch (err) {
         res.status(500).json({
@@ -96,6 +99,7 @@ export async function Login(req, res) {
     }
     res.end();
 }
+
 
 export async function Logout(req, res) {
     try {

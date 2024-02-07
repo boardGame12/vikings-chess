@@ -1,6 +1,7 @@
 import {validationResult} from "express-validator";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import { SECRET_ACCESS_TOKEN } from '../config/index.js';
 
 const Validate = (req, res, next) => {
     const errors = validationResult(req);
@@ -13,44 +14,48 @@ const Validate = (req, res, next) => {
 };
 
 export async function Verify(req, res, next) {
-    try {
-        const authHeader = req.headers["cookie"]; // get the session cookie from request header
+  try {
+      const authHeader = req.headers["cookie"]; // get the session cookie from request header
 
-        if (!authHeader) return res.sendStatus(401); // if there is no cookie from request header, send an unauthorized response.
-        const cookie = authHeader.split("=")[1]; // If there is, split the cookie string to get the actual jwt
-        const accessToken = cookie.split(";")[0];
-        const checkIfBlacklisted = await Blacklist.findOne({ token: accessToken }); // Check if that token is blacklisted
+      if (!authHeader) return res.sendStatus(401); // if there is no cookie from request header, send an unauthorized response.
+      const cookie = authHeader.split("=")[1]; // If there is, split the cookie string to get the actual jwt
 
-        if (checkIfBlacklisted)
-        return res
-            .status(401)
-            .json({ message: "This session has expired. Please login" });
-    // if token has not been blacklisted, verify with jwt to see if it has been tampered with or not.
-    // that's like checking the integrity of the accessToken
-        // Verify using jwt to see if token has been tampered with or if it has expired.
-        // that's like checking the integrity of the cookie
-        jwt.verify(cookie, config.SECRET_ACCESS_TOKEN, async (err, decoded) => {
-            if (err) {
-                // if token has been altered or has expired, return an unauthorized error
-                return res
-                    .status(401)
-                    .json({ message: "This session has expired. Please login" });
-            }
+     
 
-            const { id } = decoded; // get user id from the decoded token
-            const user = await User.findById(id); // find user by that `id`
-            const { password, ...data } = user._doc; // return user object without the password
-            req.user = data; // put the data object into req.user
-            next();
-        });
-    } catch (err) {
-        res.status(500).json({
-            status: "error",
-            code: 500,
-            data: [],
-            message: "Internal Server Error",
-        });
-    }
+      // Verify using jwt to see if token has been tampered with or if it has expired.
+      // that's like checking the integrity of the cookie
+      jwt.verify(cookie, SECRET_ACCESS_TOKEN, async (err, decoded) => {
+          if (err) {
+              // if token has been altered or has expired, return an unauthorized error
+              return res
+                  .status(401)
+                  .json({ message: "This session has expired. Please login" });
+          }
+
+          const { id } = decoded; // get user id from the decoded token
+          const user = await User.findById(id); // find user by that `id`
+          const { password, ...data } = user._doc; // return user object without the password
+          req.user = data; // put the data object into req.user
+
+          // Extract the necessary data from the user object
+          const userData = {
+            user_name: user.user_name, 
+            
+        };
+       
+        req.user_name = userData.user_name;
+
+
+          next();
+      });
+  } catch (err) {
+      res.status(500).json({
+          status: "error",
+          code: 500,
+          data: [],
+          message: "Internal Server Error",
+      });
+  }
 }
 
 export function VerifyRole(req, res, next) {

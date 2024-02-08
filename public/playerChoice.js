@@ -31,7 +31,7 @@
 
     try {
       // Send POST request to /v1/auth/login
-      const response = await fetch("/v1/auth/login", {
+      const response = await fetch("v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

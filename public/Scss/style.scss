@@ -407,18 +407,18 @@ $white:  rgb(255, 255, 255);
     #container{
         display: grid;
         grid-template-areas:
-            "header logout"
-            "nav nav"
-            "section section"
-            "PlayerNumber PlayerNumber"
-            "Difficulty Difficulty"
-            "registeration registeration"
-            "register register"
-            "regiserForm regiserForm "
-            "ruth ruth"
-            "aboutRuth aboutRuth"
-            "donald donald"
-            "aboutDonald aboutDonald";
+            "usernameDisplay header logout"
+            "nav nav nav"
+            "section section section"
+            "PlayerNumber PlayerNumber PlayerNumber"
+            "Difficulty Difficulty Difficulty"
+            "registeration registeration registeration"
+            "register register register"
+            " regiserForm regiserForm regiserForm "
+            "ruth ruth ruth"
+            "aboutRuth aboutRuth aboutRuth"
+            "donald donald donald"
+            "aboutDonald aboutDonald  aboutDonald";
         width: 100%;
     }
     section{
@@ -487,6 +487,9 @@ $white:  rgb(255, 255, 255);
     }
     .logout{
       grid-area: logout;
+    }
+    #usernameDisplay{
+      grid-area: usernameDisplay;
     }
 }
 

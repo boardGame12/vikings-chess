@@ -38,11 +38,12 @@ export async function Register(req, res) {
                 "Thank you for registering with us. Your account has been successfully created.",
         });
     } catch (err) {
+        console.log(err)
         res.status(500).json({
             status: "error",
             code: 500,
             data: [],
-            message: "Internal Server Error",
+            message: "Internal Server Error REGISTER ERROR",
         });
     }
     res.end();
@@ -90,11 +91,12 @@ export async function Login(req, res) {
             user_name: user.user_name, // Include the user_name in the response
         });
     } catch (err) {
+        console.log(err)
         res.status(500).json({
             status: "error",
             code: 500,
             data: [],
-            message: "Internal Server Error",
+            message: "Internal Server Error LOGIN ERROR",
         });
     }
     res.end();
@@ -119,6 +121,7 @@ export async function Logout(req, res) {
       res.setHeader('Clear-Site-Data', '"cookies"');
       res.status(200).json({ message: 'You are logged out!' });
     } catch (err) {
+        console.log(err)
       res.status(500).json({
         status: 'error',
         message: 'Internal Server Error',

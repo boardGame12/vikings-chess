@@ -49,6 +49,7 @@ export async function Verify(req, res, next) {
           next();
       });
   } catch (err) {
+    console.log(err)
       res.status(500).json({
           status: "error",
           code: 500,
@@ -72,11 +73,12 @@ export function VerifyRole(req, res, next) {
       }
       next(); // continue to the next middleware or function
     } catch (err) {
+      console.log(err)
       res.status(500).json({
         status: 'error',
         code: 500,
         data: [],
-        message: 'Internal Server Error',
+        message: 'Internal Server Error VERIFY ROLE ERROR',
       });
     }
   }

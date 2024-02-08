@@ -22,7 +22,7 @@ app.get("/v1",(req,res)=>{
     } catch(err){
         res.status(500).json({
             status:"error",
-            message:"Internal Server Error",
+            message:"Internal Server Error IDEX ERROR",
         });
     }
 });

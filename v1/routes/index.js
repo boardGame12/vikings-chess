@@ -8,11 +8,11 @@ import  {VerifyRole}  from "../middleware/validate.js";
 
 const app = express();
 
-app.use('/v1/auth', Auth);
+app.use('v1/auth', Auth);
 
 app.disable("x-powered-by")
 
-app.get("/v1",(req,res)=>{
+app.get("v1",(req,res)=>{
     try{
         res.status(200).json({
             status:"success",
@@ -29,7 +29,7 @@ app.get("/v1",(req,res)=>{
 
 
 
-app.get('/v1/admin', Verify, VerifyRole, (req, res) => {
+app.get('v1/admin', Verify, VerifyRole, (req, res) => {
     res.status(200).json({
         status: "Success",
         messsage: "Welcome to the Admin Portal!",

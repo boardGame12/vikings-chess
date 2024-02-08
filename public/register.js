@@ -14,7 +14,7 @@ async function registerUser(event) {
     };
 
     try {
-        const response = await fetch('ancientgamers/v1/auth/register', {
+        const response = await fetch('v1/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

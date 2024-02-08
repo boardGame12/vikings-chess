@@ -38,7 +38,7 @@ app.get('/v1/admin', Verify, VerifyRole, (req, res) => {
 
 
 
- app.get("/v1/user", Verify, (req, res) => {
+ app.get("v1/user", Verify, (req, res) => {
     res.status(200).json({  
         status: "success",
         message: "Welcome to your Dashboard!",

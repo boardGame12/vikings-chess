@@ -470,7 +470,7 @@ ComputerMove() {
 
 function fetchUserNameAndUpdate() {
   // Make a GET request to fetch the user_name after successful login
-  fetch("/v1/user")
+  fetch("v1/user")
       .then(response => {
           // Check if the response is OK (status code 200)
           if (response.ok) {

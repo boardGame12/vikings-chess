@@ -53,7 +53,7 @@ export async function Verify(req, res, next) {
           status: "error",
           code: 500,
           data: [],
-          message: "Internal Server Error",
+          message: "Internal Server Error BOGUS",
       });
   }
 }

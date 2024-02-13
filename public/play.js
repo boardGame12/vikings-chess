@@ -1,8 +1,8 @@
 const canvas = document.getElementById("canvas");
 const announce = document.getElementById("announce");
 const ctx = canvas.getContext("2d");
-const CANVAS_WIDTH = canvas.width = 650;
-const CANVAS_HEIGHT = canvas.height = 650;
+let CANVAS_WIDTH = canvas.width = 780;
+let CANVAS_HEIGHT = canvas.height = 780;
 const boardImage = new Image();
 boardImage.src = './Images/basicBoard.png';
 const offense = "offense";
@@ -60,6 +60,7 @@ class Board {
   constructor() {
     this.cellSize = CANVAS_WIDTH / 13;
     this.boardSize = CANVAS_WIDTH / 13; 
+    this.square = CANVAS_WIDTH / 13;
     this.pieces = [];
     this.pieceLocations = []; 
     this.lastMovedCell = { x: null, y: null }; 
@@ -107,10 +108,10 @@ class Board {
 
   gameover() {
     const kingLocation = board.findKingLocation();
-    const spot1 = { x: 50, y: 50 };
-    const spot2 = { x: 550, y: 50 };
-    const spot3 = { x: 50, y: 550 };
-    const spot4 = { x: 550, y: 550 };
+    const spot1 = { x: this.cellSize, y: this.cellSize };
+    const spot2 = { x: (this.cellSize * 11), y: this.cellSize };
+    const spot3 = { x: this.cellSize, y: (this.cellSize * 11) };
+    const spot4 = { x: (this.cellSize * 11), y: (this.cellSize * 11) };
   
     const yellowWins = this.winner === "yellow"; 
     
@@ -153,23 +154,23 @@ class Board {
           const yDiff = Math.abs(currentPiece.y - otherPiece.y);
 
   
-          if (xDiff >= 50 - range && xDiff <= 50 + range && currentPiece.role !== otherPiece.role && yDiff >= 0 - range && yDiff <= 0 + range && otherPiece.king === false) {
+          if (xDiff >= this.cellSize - range && xDiff <= this.cellSize + range && currentPiece.role !== otherPiece.role && yDiff >= 0 - range && yDiff <= 0 + range && otherPiece.king === false) {
             xAdjacentCount++;
           }
           
-          if (yDiff >= 50 - range && yDiff <= 50 + range && currentPiece.role !== otherPiece.role && xDiff >= 0 - range && xDiff <= 0 + range && otherPiece.king === false)  {
+          if (yDiff >= this.cellSize - range && yDiff <= this.cellSize + range && currentPiece.role !== otherPiece.role && xDiff >= 0 - range && xDiff <= 0 + range && otherPiece.king === false)  {
             yAdjacentCount++;
           }
         }
       }
 
-      if((kingLocation.x === 50 || kingLocation.x === 550 || kingLocation.y === 50|| kingLocation.y === 550) && currentPiece.king === true && xAdjacentCount === 2 && yAdjacentCount === 1){
+      if((kingLocation.x === this.cellSize || kingLocation.x ===  (this.cellSize * 11) || kingLocation.y === this.cellSize|| kingLocation.y === (this.cellSize * 11)) && currentPiece.king === true && xAdjacentCount === 2 && yAdjacentCount === 1){
         this.pieces.splice(i, 1);
         i--; 
         this.winner = "yellow"  
       }
 
-      if((kingLocation.x === 50 || kingLocation.x === 550 || kingLocation.y === 50|| kingLocation.y === 550) && currentPiece.king === true && xAdjacentCount === 1 && yAdjacentCount === 2){
+      if((kingLocation.x === this.cellSize || kingLocation.x === (this.cellSize * 11) || kingLocation.y === this.cellSize|| kingLocation.y === (this.cellSize * 11)) && currentPiece.king === true && xAdjacentCount === 1 && yAdjacentCount === 2){
         this.pieces.splice(i, 1);
         i--; 
         this.winner = "yellow"  
@@ -240,8 +241,8 @@ class Board {
       // Check if the new position is not occupied by another piece
       const newPositionOccupied = this.pieces.some(piece => piece.x === newX && piece.y === newY);
 
-      const validXPosition = newX > 0 && newX < 600;
-      const validYPosition = newY > 0 && newY < 600;
+      const validXPosition = newX > 40 && newX <= (this.cellSize * 12);
+      const validYPosition = newY > 40 && newY <= (this.cellSize * 12);
 
   
       // Return true only if there are no obstacles
@@ -263,51 +264,51 @@ class Board {
       const imageWithoutBackground = this.removeBackground(spriteSheetImage, targetColor);
 
       //center blue pieces
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 200, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 250, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 350, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 400, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 250, 350, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 350, 350, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 350, 300, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 400, 300, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 200, 300, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 300, 50, 50, 0, 676, 96, 96, defense,true));
-      this.pieces.push(new Piece(imageWithoutBackground, 350, 250, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 250, 250, 50, 50, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, 250, 300, 50, 50, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 4), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 8), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 676, 96, 96, defense, true));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
 
       //left yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, 100, 300, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 50, 300, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 50, 250, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 50, 200, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 50, 350, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 50, 400, 50, 50, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 2), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 5), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 4), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 7), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 8), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
 
       // right yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, 500, 300, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 550, 300, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 550, 250, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 550, 200, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 550, 350, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 550, 400, 50, 50, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 10), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 4), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 8), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
 
       // top yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, 200, 50, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 250, 50, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 50, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 350, 50, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 400, 50, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 100, 50, 50, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 2), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
       
       // bottom yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, 250, 550, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 200, 550, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 550, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 350, 550, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 400, 550, 50, 50, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, 300, 500, 50, 50, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 10), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
 
       // Add more pieces as needed for the board
       this.drawBoard();
@@ -397,7 +398,7 @@ ComputerMove() {
   for (let i = this.lastMovedPieceIndex; i < this.pieces.length; i++) {
     const piece = this.pieces[i];
     if (piece.role === 'offense') {
-      for (let j = 50; j <= 200; j += 50) {
+      for (let j = this.cellSize; j <= (this.cellSize * 4); j += this.cellSize) {
         for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
           const newX = kingLocation.x + dx * j;
           const newY = kingLocation.y + dy * j;
@@ -504,5 +505,57 @@ window.onload = function() {
 };
 
 
+window.addEventListener('resize', () => {
+  const computedStyles = window.getComputedStyle(canvas);
+  //CANVAS_WIDTH = parseInt(computedStyles.getPropertyValue('width'));
+  //CANVAS_HEIGHT = parseInt(computedStyles.getPropertyValue('height'));
+  
+  // Get the value of the --custom-dimension CSS variable from the :root selector
+  const rootStyles = getComputedStyle(document.documentElement);
+  const customDimension = parseInt(rootStyles.getPropertyValue('--custom-dimension'));
+  
+  // Set the canvas width and height based on the --custom-dimension variable
+  canvas.width = customDimension;
+  canvas.height = customDimension;
+
+   CANVAS_HEIGHT = customDimension;
+   CANVAS_WIDTH = customDimension;
+  
+  // Redraw the entire board
+  board.drawBoard();
+  console.log("canvas.width = ", canvas.width, "canvas.height = " , canvas.height, "CANVAS_HEIGHT = ", CANVAS_HEIGHT, "CANVAS_WIDTH = ",  CANVAS_WIDTH);
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var logoutButton = document.querySelector(".logout");
+  logoutButton.addEventListener("click", function() {
+   
+    logout();
+  });
+});
+
+
+    function logout() {
+    fetch('v1/auth/logout', {
+        method: 'GET',
+        credentials: 'same-origin', // include cookies in the request if any
+    })
+    .then(response => {
+        if (response.ok) {
+          document.getElementById("usernameDisplay").textContent = "";
+            // If logout was successful, redirect to the login page or perform any other action
+            console.log("logged out successfully")
+        } else {
+            console.error('Logout failed');
+        }
+    })
+    .catch(error => {
+        // Handle network errors
+        console.error('Network error:', error);
+    });
+}
+
 const board = new Board();
+console.log(board.cellSize, "This is the cell size")
 board.drawBoard();

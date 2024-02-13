@@ -83,6 +83,7 @@ $white:  rgb(255, 255, 255);
     transform: translate(-50%,-50%);
     width: 650px;
     height: 650px;
+    
   }
   section{
     //display: grid;
@@ -486,7 +487,10 @@ $white:  rgb(255, 255, 255);
     }
 }
 
-#announce{text-align: center;}
+#announce{
+  text-align: center;
+  grid-area: auto;
+}
 
 /*@media only screen and (min-width: 1921px){
   section{

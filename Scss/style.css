@@ -479,6 +479,7 @@ section .basic {
 }
 #announce {
   text-align: center;
+  grid-area: auto;
 }
 
 /*@media only screen and (min-width: 1921px){

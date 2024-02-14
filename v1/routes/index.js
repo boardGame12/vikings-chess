@@ -42,7 +42,10 @@ app.get('/v1/admin', Verify, VerifyRole, (req, res) => {
     res.status(200).json({  
         status: "success",
         message: "Welcome to your Dashboard!",
-        user_name: req.user_name 
+        user_name: req.user_name,
+        wins: req.wins,
+        losses: req.losses, 
+        time_played: req.time_played
     });
 });
 

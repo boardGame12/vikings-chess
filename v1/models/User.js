@@ -29,6 +29,18 @@ const UserSchema = new mongoose.Schema(
             default: "0x01",
 
         },
+        wins:{
+            type: Number,
+            default: 0,
+        },
+        losses:{
+            type: Number,
+            default: 0,
+        },
+        timeplayed:{
+            type: Number,
+            default:0,
+        }
     },
     { timestamps: true }
 );

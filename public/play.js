@@ -8,6 +8,7 @@ boardImage.src = './Images/basicBoard.png';
 const offense = "offense";
 const defense = "defense";
 const turn = "offense";
+let userName = ''
 
 class Piece {
   constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, king = false) {
@@ -112,12 +113,19 @@ class Board {
     const spot2 = { x: (this.cellSize * 11), y: this.cellSize };
     const spot3 = { x: this.cellSize, y: (this.cellSize * 11) };
     const spot4 = { x: (this.cellSize * 11), y: (this.cellSize * 11) };
+   
+
+    
   
     const yellowWins = this.winner === "yellow"; 
     
     if (yellowWins) {
+      
       announce.innerHTML = "Yellow Wins!"
       console.log("Yellow Wins!");
+      if(userName){
+      updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
+      }
     } else if (kingLocation !== null) { 
       if (
         (kingLocation.x === spot1.x && kingLocation.y === spot1.y) ||
@@ -127,6 +135,9 @@ class Board {
       ) {
         announce.innerHTML = "Blue Wins!";
         console.log("Blue Wins!");
+        if(userName){
+          updatePlayerStats(userName, 'win', 60); // Update player1's stats for winning a game that lasted 60 seconds
+          }
       }
     }
   }
@@ -469,6 +480,29 @@ ComputerMove() {
 
 
 
+async function updatePlayerStats(user_name, outcome, playTime) {
+  try {
+      const response = await fetch("v1/auth/updateStats", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              user_name,
+              outcome,
+              playTime
+          })
+      });
+
+      console.log(response); // Log the entire response object
+      const data = await response.json();
+      console.log(data.message); // Log the server response
+  } catch (error) {
+      console.error('Error updating player stats:', error);
+      console.log(error);
+  }
+}
+
 function fetchUserNameAndUpdate() {
   // Make a GET request to fetch the user_name after successful login
   fetch("v1/user")
@@ -483,21 +517,47 @@ function fetchUserNameAndUpdate() {
           }
       })
       .then(data => {
-          // Extract the user_name from the response data
-          const userName = data.user_name;
-          // Check if username exists
-          if (userName) {
-              // Update the UI with the user_name
-              console.log("User Name:", userName);
-              document.getElementById("usernameDisplay").textContent = userName;
-          } else {
-              console.log("No user name found");
-          }
-      })
-      .catch(error => {
-          // Log any errors that occur during the process
-          console.error("Error:", error.message);
-      });
+        if (data) {
+            userName = data.user_name;
+            const wins = data.wins;
+            const losses = data.losses;
+    
+            // Concatenate username, wins, and losses into a single string with new lines
+            let userInfo = "";
+            if (userName) {
+                userInfo += `User Name: ${userName}\n`;
+            } else {
+                console.log("No username found in the response data.");
+            }
+    
+            if (wins !== undefined) {
+                userInfo += `Wins: ${wins}\n`;
+            } else {
+                console.log("Wins data not available in the response.");
+            }
+    
+            if (losses !== undefined) {
+                userInfo += `Losses: ${losses}\n`;
+            } else {
+                console.log("Losses data not available in the response.");
+            }
+    
+            // Update the UI with the concatenated user info
+            const usernameDisplay = document.getElementById("usernameDisplay");
+            if (usernameDisplay) {
+                usernameDisplay.textContent = userInfo;
+            } else {
+                console.error("Username display element not found in the DOM.");
+            }
+        } else {
+            console.log("No data received from the server.");
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching user data:', error);
+    });
+    
+    
 }
 
 window.onload = function() {
@@ -505,7 +565,7 @@ window.onload = function() {
 };
 
 
-window.addEventListener('resize', () => {
+/*window.addEventListener('resize', () => {
   const computedStyles = window.getComputedStyle(canvas);
   //CANVAS_WIDTH = parseInt(computedStyles.getPropertyValue('width'));
   //CANVAS_HEIGHT = parseInt(computedStyles.getPropertyValue('height'));
@@ -525,7 +585,7 @@ window.addEventListener('resize', () => {
   board.drawBoard();
   console.log("canvas.width = ", canvas.width, "canvas.height = " , canvas.height, "CANVAS_HEIGHT = ", CANVAS_HEIGHT, "CANVAS_WIDTH = ",  CANVAS_WIDTH);
 });
-
+*/
 
 document.addEventListener("DOMContentLoaded", function() {
   var logoutButton = document.querySelector(".logout");

@@ -4,6 +4,7 @@ import Validate from "../middleware/validate.js";
 import { check } from "express-validator";
 import { Login } from "../controllers/auth.js"
 import { Logout } from "../controllers/auth.js";
+import User from "../models/User.js";
 
 const router = express.Router();
 
@@ -46,6 +47,46 @@ router.post(
     Validate,
     Login
 );
+
+// Route to handle POST requests for updating player stats
+router.post("/updateStats", async (req, res) => {
+    const { user_name, outcome, playTime } = req.body;
+
+    if (!user_name || !outcome || !playTime) {
+        return res.status(400).json({ message: 'Missing required fields.' });
+    }
+
+    try {
+        let user = await User.findOne({ user_name });
+
+        if (!user) {
+            user = new User({
+                user_name,
+                wins: 0,
+                losses: 0,
+                play_time: 0
+            });
+        }
+
+        if (outcome === 'win') {
+            user.wins++;
+        } else if (outcome === 'loss') {
+            user.losses++;
+        } else {
+            return res.status(400).json({ message: 'Invalid outcome.' });
+        }
+
+        user.play_time += playTime;
+
+        await user.save();
+
+        res.json({ message: 'Player stats updated successfully.' });
+    } catch (error) {
+        console.error('Error updating player stats:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
 
 // Logout route ==
 router.get('/logout', Logout);

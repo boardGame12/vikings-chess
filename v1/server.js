@@ -35,6 +35,6 @@ mongoose
 server.use(App);
 
 server.listen(PORT, () =>
-    console.log(`Server runnning on http://localhost:${PORT}`)
+    console.log(`Server runnning on port:${PORT}`)
     );
 

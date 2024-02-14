@@ -40,10 +40,16 @@ export async function Verify(req, res, next) {
           // Extract the necessary data from the user object
           const userData = {
             user_name: user.user_name, 
-            
+            wins: user.wins,
+            losses: user.losses,
+            time_played: user.timeplayed   
         };
        
-        req.user_name = userData.user_name;
+          // Assign user data to request object
+          req.user_name = userData.user_name;
+          req.wins = userData.wins;
+          req.losses = userData.losses;
+          req.time_played = userData.time_played;
 
 
           next();

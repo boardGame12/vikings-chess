@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas");
 const announce = document.getElementById("announce");
 const ctx = canvas.getContext("2d");
+const socket = io();
 let CANVAS_WIDTH = canvas.width = 780;
 let CANVAS_HEIGHT = canvas.height = 780;
 const boardImage = new Image();
@@ -8,11 +9,14 @@ boardImage.src = './Images/basicBoard.png';
 const offense = "offense";
 const defense = "defense";
 const turn = "offense";
-let userName = ''
-this.statsUpdated = false;
+let userName = '';
+let roomNumber;
+let TwoPlayers;
+let playersRole;
+let playerColor; 
 
 class Piece {
-  constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, king = false) {
+  constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, id, king = false) {
     this.img = img;
     this.x = x;
     this.y = y;
@@ -25,6 +29,7 @@ class Piece {
     this.isSelected = false;
     this.role = role;
     this.king = king;
+    this.id = id;
   }
 
   includesCell(cell) {
@@ -71,18 +76,12 @@ class Board {
     this.winner = null;
     this.lastMovedPieceIndex = 0; 
     this.running = true;
+    this.statsUpdated = false;
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
 
     this.run();
   }
-
-  showPlayAgainButton() {
-    var button = document.getElementById('playAgainButton');
-    button.style.display = 'block';
-    console.log("THIS SHOULD SHOW THE PLAY BUTTON")
-  }
-
 
   run() {
     const gameLoop = () => {
@@ -90,7 +89,7 @@ class Board {
         this.drawBoard();
   
         if (this.turn === "offense") {
-          this.ComputerMove();
+          //this.ComputerMove();
           //this.capture();
         }
   
@@ -130,8 +129,8 @@ class Board {
     if (yellowWins) {
       
       announce.innerHTML = "Yellow Wins!"
-      console.log("Yellow Wins!");
       this.showPlayAgainButton();
+      console.log("Yellow Wins!");
       if(userName && this.statsUpdated === false){
         updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
         this.statsUpdated = true;
@@ -151,6 +150,7 @@ class Board {
           updatePlayerStats(userName, 'win', 60); // Update player1's stats for winning a game that lasted 60 seconds
           this.statsUpdated = true;
           fetchUserNameAndUpdate();
+          
           }
       }
     }
@@ -158,7 +158,13 @@ class Board {
   
 
 
-
+  
+   showPlayAgainButton() {
+    var button = document.getElementById('playAgainButton');
+    button.style.display = 'block';
+    console.log("THIS SHOULD SHOW THE PLAY BUTTON")
+  }
+  
 
   capture() {
     let xAdjacentCount = 0;
@@ -289,51 +295,51 @@ class Board {
       const imageWithoutBackground = this.removeBackground(spriteSheetImage, targetColor);
 
       //center blue pieces
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 4), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 8), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 676, 96, 96, defense, true));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 4), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 1));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 2));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 3));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 8), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 4));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 5));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 6));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 7));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 8));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 9));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 676, 96, 96, defense, 10, true));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 11));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 12));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 580, 96, 96, defense, 13));
 
       //left yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 2), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 5), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 4), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 7), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 8), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 2), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 14));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 15));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 5), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 16));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 4), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 17));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 7), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 18));
+      this.pieces.push(new Piece(imageWithoutBackground, this.cellSize, (this.cellSize * 8), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 19));
 
       // right yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 10), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 4), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 8), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 10), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 20));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 6), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 21));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 5), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 22));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 4), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 23));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 7), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 24));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 11), (this.cellSize * 8), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 25));
 
       // top yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 2), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 26));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 27));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 28));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 29));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), this.cellSize, this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 30));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 2), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 31));
       
       // bottom yellow pieces
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
-      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 10), this.cellSize, this.cellSize, 0, 388, 96, 96, offense));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 5), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 32));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 4), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 33));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 34));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 7), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 35));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 8), (this.cellSize * 11), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 36));
+      this.pieces.push(new Piece(imageWithoutBackground, (this.cellSize * 6), (this.cellSize * 10), this.cellSize, this.cellSize, 0, 388, 96, 96, offense, 37));
 
       // Add more pieces as needed for the board
       this.drawBoard();
@@ -472,14 +478,22 @@ ComputerMove() {
       if (selectedPiece) {
         const newPieceX = (clickedX * this.cellSize) + (this.cellSize / 2) - (selectedPiece.width / 2);
         const newPieceY = (clickedY * this.cellSize) + (this.cellSize / 2) - (selectedPiece.height / 2);
-        if (this.validMove(selectedPiece, newPieceX, newPieceY)) {
+        console.log(this.turn)
+        console.log(playersRole)
+        console.log(playersRole === this.turn)
+        if (this.validMove(selectedPiece, newPieceX, newPieceY) && TwoPlayers && (playersRole === this.turn)) {
+          console.log(this.turn)
+          console.log(playersRole)
+          socket.emit('move', { pieceId: selectedPiece.id, newX: newPieceX, newY: newPieceY, clientRoom: roomNumber });
+          console.log('Moved piece:', selectedPiece, 'to:', newPieceX, newPieceY);
           selectedPiece.moveTo(newPieceX, newPieceY);
            
           this.capture();
           this.drawBoard();
-          this.swapturn();
+        
+          console.log(this.turn);
+          console.log(playersRole);
           this.gameover();
-          //this.run();
         }
       }
     }
@@ -630,6 +644,78 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 }
 
+
+
+
+
 const board = new Board();
 console.log(board.cellSize, "This is the cell size")
 board.drawBoard();
+
+
+// Listen for the 'connect' event to ensure the socket is connected before executing any logic
+socket.on('connect', () => {
+  console.log('Connected to server');
+
+  // Listen for the 'Room Number:' event after the socket is connected
+  socket.on('Room Number:', (number) => {
+      roomNumber = number; // Assign received room number to roomNumber variable
+      //announce.innerHTML = `Room Number: ${roomNumber}`;
+      console.log('Received Room Number:', roomNumber);
+  });
+
+// Listen for the 'Player Color:' event from the server
+socket.on('Player Color:', (color) => {
+  playerColor = color; // Assign received player color to playerColor variable
+  updateAnnouncementText(); // Update announcement text
+  console.log('Received Player Color:', playerColor);
+  if (playerColor === "blue"){
+    playersRole = "defense"
+  }
+  else if(playerColor === "yellow"){
+    playersRole = "offense"
+  }
+});
+
+// Listen for the 'Two Players:' event from the server
+socket.on('Two Players:', (hasTwoPlayers) => {
+  console.log('Received Two Players:', hasTwoPlayers);
+  TwoPlayers = hasTwoPlayers;
+  updateAnnouncementText(); // Update announcement text
+  // Use the received information about whether two players are in the room as needed
+});
+
+function updateAnnouncementText() {
+  // Check if both playerColor and TwoPlayers are defined
+  if (typeof playerColor !== 'undefined' && typeof TwoPlayers !== 'undefined') {
+      let twoPlayersInfo = ""; // Default to empty string
+      if (!TwoPlayers) {
+          twoPlayersInfo = " | Waiting for 2 players"; // Show this if there are not two players
+      }
+      const combinedText = `Player Color: ${playerColor}${twoPlayersInfo}`;
+      announce.textContent = combinedText; // Set the text content of announce element
+  }
+}
+
+
+
+
+  // Listen for the 'move' event from the server
+  socket.on('move', ({ pieceId, newX, newY }) => {
+      // Check if roomNumber is defined and contains the current room
+      if (roomNumber) {
+          // Update game state on the receiving end based on the received move information
+          const movedPiece = board.pieces.find(piece => piece.id === pieceId);
+          if (movedPiece) {
+              movedPiece.moveTo(newX, newY);
+              board.capture();
+              board.drawBoard();
+              board.swapturn();
+              board.gameover();
+              console.log("socket move")
+          }
+      } else {
+          console.error('Socket room is undefined or does not contain the current room.');
+      }
+  });
+});

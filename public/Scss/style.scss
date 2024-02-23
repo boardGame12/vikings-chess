@@ -11,6 +11,7 @@ $white:  rgb(255, 255, 255);
                           "nav nav  nav nav nav nav nav nav nav nav nav nav"
                           "announce announce announce announce announce announce announce announce announce announce announce announce"
                           "canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas"
+                          "playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton"
                           "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration"
                           "section section section  section section section section section section section section section"
                           "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald"
@@ -416,6 +417,7 @@ $white:  rgb(255, 255, 255);
     .logout{
       grid-area: logout;
     }
+   
     #usernameDisplay{
       grid-area: usernameDisplay;
       color: $darkbrown;
@@ -427,3 +429,22 @@ $white:  rgb(255, 255, 255);
   grid-area: announce;
 }
 
+
+#playAgainButton {
+  display: none;
+  grid-area: playAgainButton;
+  align-self: center;
+  justify-self: center; 
+  background: $darkbrown;
+  background-image: linear-gradient(to bottom, rgb(145,111,111),rgb(107, 81, 81));
+  border-radius: 60px;
+  font-family: $main-font;
+  color: $white;
+  font-size: 26px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  margin: 10px;  
+}

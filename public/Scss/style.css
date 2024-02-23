@@ -447,4 +447,8 @@ section .basic {
 #announce {
   text-align: center;
   grid-area: announce;
+}
+
+#playAgainButton {
+  display: none;
 }/*# sourceMappingURL=style.css.map */

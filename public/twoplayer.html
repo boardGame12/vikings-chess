@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play</title>
+  <link rel="stylesheet" href="Scss/style.css">
+</head>
+<body>
+  <div id="container">
+   
+    <div id="usernameDisplay"></div>
+    <button class="logout" type="button">Logout</button>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html">
+            <img src="Images/ship.png" alt="boat">
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="rules.html">
+            <img src="Images/helmet.png" alt="helmet">
+            <span>Rules</span>
+          </a>
+        </li>
+        <li>
+          <a href="playerChoice.html">
+            <img src="Images/ship.png" alt="boat">
+            <span>Play</span>
+          </a>
+        </li>
+        <li>
+          <a href="about.html">
+            <img src="Images/helmet.png" alt="helmet">
+            <span>About</span>
+          </a>
+        </li>
+        <li>
+          <a href="register.html">
+            <img src="Images/ship.png" alt="boat">
+            <span>Register</span>
+          </a>
+        </li>
+        <li>
+          <a href="creator.html">
+            <img src="Images/helmet.png" alt="helmet">
+            <span>Creator</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <h1 id="announce"></h1>
+    <canvas id ="canvas"></canvas>
+    <script>
+      
+      function reloadPage() {
+          location.reload();
+      }
+</script>
+    <button id="playAgainButton" onclick="reloadPage()">Play again?</button>
+
+    
+  </div>
+  
+  
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.4.1/dist/socket.io.js"></script>
+  <script type="module" src="twoplayer.js"></script>
+</body>
+</html>
+

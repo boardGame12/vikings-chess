@@ -11,11 +11,11 @@ $white:  rgb(255, 255, 255);
                           "nav nav  nav nav nav nav nav nav nav nav nav nav"
                           "announce announce announce announce announce announce announce announce announce announce announce announce"
                           "canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas"
+                          "playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton"
                           "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration"
                           "section section section  section section section section section section section section section"
                           "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald"
                           "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald"
-                          "PlayerNumber PlayerNumber PlayerNumber PlayerNumber PlayerNumber rock rock Difficulty Difficulty Difficulty Difficulty Difficulty"
                           "register register register register register register register register register register register register"
                           "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
 
@@ -173,40 +173,6 @@ $white:  rgb(255, 255, 255);
     background: #000000;
     text-decoration: none;
   }
-  .PlayerNumber {
-    grid-area: PlayerNumber;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    //background-color: green;
-    margin: 10px 20px;
-    padding: 20px;
-    text-align: center;
-  }
-  .Difficulty{
-    grid-area: Difficulty;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    //background-color: rebeccapurple;
-    margin: 10px 20px;
-    padding: 20px;
-    text-align: center;
-  }
-  .rock{
-    grid-area: rock;
-  }
-  .rock img[alt~=rock] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 100px auto;
-    height: 100px; /* Adjust height as needed */
-    width: auto;
-  }
   .register{
     grid-area: register;
     display: flex;
@@ -215,7 +181,7 @@ $white:  rgb(255, 255, 255);
     justify-content: center;
     //background-color: #ffffff;
     margin: 10px 20px;
-    padding: 20px;
+    padding: 90px;
     text-align: center;
 
   }
@@ -371,11 +337,9 @@ $white:  rgb(255, 255, 255);
             "announce announce announce"
             "canvas canvas canvas"
             "section section section"
-            "PlayerNumber PlayerNumber PlayerNumber"
-            "Difficulty Difficulty Difficulty"
             "registeration registeration registeration"
             "register register register"
-            " regiserForm regiserForm regiserForm "
+            "regiserForm regiserForm regiserForm "
             "ruth ruth ruth"
             "aboutRuth aboutRuth aboutRuth"
             "donald donald donald"
@@ -411,9 +375,6 @@ $white:  rgb(255, 255, 255);
     }
     .register{
         grid-area: register;
-    }
-    .PlayerNumber{
-        grid-area: PlayerNumber;
     }
     .announce
     .ruth{
@@ -456,6 +417,7 @@ $white:  rgb(255, 255, 255);
     .logout{
       grid-area: logout;
     }
+   
     #usernameDisplay{
       grid-area: usernameDisplay;
       color: $darkbrown;
@@ -470,4 +432,19 @@ $white:  rgb(255, 255, 255);
 
 #playAgainButton {
   display: none;
+  grid-area: playAgainButton;
+  align-self: center;
+  justify-self: center; 
+  background: $darkbrown;
+  background-image: linear-gradient(to bottom, rgb(145,111,111),rgb(107, 81, 81));
+  border-radius: 60px;
+  font-family: $main-font;
+  color: $white;
+  font-size: 26px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  margin: 10px;  
 }

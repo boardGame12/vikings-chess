@@ -9,6 +9,7 @@ const offense = "offense";
 const defense = "defense";
 const turn = "offense";
 let userName = ''
+this.statsUpdated = false;
 
 class Piece {
   constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, king = false) {
@@ -76,6 +77,13 @@ class Board {
     this.run();
   }
 
+  showPlayAgainButton() {
+    var button = document.getElementById('playAgainButton');
+    button.style.display = 'block';
+    console.log("THIS SHOULD SHOW THE PLAY BUTTON")
+  }
+
+
   run() {
     const gameLoop = () => {
       if (this.running) {
@@ -123,8 +131,11 @@ class Board {
       
       announce.innerHTML = "Yellow Wins!"
       console.log("Yellow Wins!");
-      if(userName){
-      updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
+      this.showPlayAgainButton();
+      if(userName && this.statsUpdated === false){
+        updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
+        this.statsUpdated = true;
+        fetchUserNameAndUpdate();
       }
     } else if (kingLocation !== null) { 
       if (
@@ -135,8 +146,11 @@ class Board {
       ) {
         announce.innerHTML = "Blue Wins!";
         console.log("Blue Wins!");
-        if(userName){
+        this.showPlayAgainButton();
+        if(userName && this.statsUpdated === false){
           updatePlayerStats(userName, 'win', 60); // Update player1's stats for winning a game that lasted 60 seconds
+          this.statsUpdated = true;
+          fetchUserNameAndUpdate();
           }
       }
     }

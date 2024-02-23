@@ -132,9 +132,9 @@ class Board {
       this.showPlayAgainButton();
       console.log("Yellow Wins!");
       if(userName && this.statsUpdated === false){
-      updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
-      this.statsUpdated = true;
-      fetchUserNameAndUpdate();
+        updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
+        this.statsUpdated = true;
+        fetchUserNameAndUpdate();
       }
     } else if (kingLocation !== null) { 
       if (

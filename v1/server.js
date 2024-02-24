@@ -43,7 +43,7 @@ const httpServer = http.createServer(server);
 
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
-    path: 'ancientgamers/socket.io'
+    path: "/ancientgamers/socket.io"
 });
 let roomCounter = 1; // Initialize room counter
 

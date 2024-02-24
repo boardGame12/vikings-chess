@@ -9,7 +9,7 @@ const offense = "offense";
 const defense = "defense";
 const turn = "offense";
 let userName = ''
-this.statsUpdated = false;
+
 
 class Piece {
   constructor(img, x, y, width, height, spriteX, spriteY, spriteWidth, spriteHeight, role, king = false) {
@@ -71,6 +71,7 @@ class Board {
     this.winner = null;
     this.lastMovedPieceIndex = 0; 
     this.running = true;
+    this.statsUpdated = false;
 
     canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
 
@@ -133,6 +134,7 @@ class Board {
       console.log("Yellow Wins!");
       this.showPlayAgainButton();
       if(userName && this.statsUpdated === false){
+        console.log("updating stats...")
         updatePlayerStats(userName, 'loss', 60); // Update player1's stats for winning a game that lasted 60 seconds
         this.statsUpdated = true;
         fetchUserNameAndUpdate();
@@ -148,6 +150,7 @@ class Board {
         console.log("Blue Wins!");
         this.showPlayAgainButton();
         if(userName && this.statsUpdated === false){
+          console.log("updating stats...")
           updatePlayerStats(userName, 'win', 60); // Update player1's stats for winning a game that lasted 60 seconds
           this.statsUpdated = true;
           fetchUserNameAndUpdate();

@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const announce = document.getElementById("announce");
 const ctx = canvas.getContext("2d");
-const socket = io();
+const socket = io({ path: '/ancientgamers/socket.io' });
 let CANVAS_WIDTH = canvas.width = 780;
 let CANVAS_HEIGHT = canvas.height = 780;
 const boardImage = new Image();

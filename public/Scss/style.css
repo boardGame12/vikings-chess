@@ -1,7 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/snap-itc");
 #container {
   display: grid;
-  grid-template-areas: "usernameDisplay header header header header header header header header header header logout" "nav nav  nav nav nav nav nav nav nav nav nav nav" "announce announce announce announce announce announce announce announce announce announce announce announce" "canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas" "playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton" "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration" "section section section  section section section section section section section section section" "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald" "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald" "register register register register register register register register register register register register" "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
+  grid-template-areas: "usernameDisplay header header header header header header header header header header logout" "nav nav  nav nav nav nav nav nav nav nav nav nav" "announce announce announce announce announce announce announce announce announce announce announce announce" "canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas canvas" "playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton playAgainButton" "registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration registeration" "section section section  section section section section section section section section section" "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald" "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald" "register register register register register register register register register register register register" "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm" "Git Git Git Git Git Git Git Git Git Git Git Git ";
   width: 95%;
   margin: 10px auto;
 }
@@ -13,6 +13,7 @@ body {
 
 nav {
   font-family: "Snap ITC", Arial, sans-serif;
+  font-size: 30px;
   grid-area: nav;
   padding: 20px;
   text-align: center;
@@ -23,14 +24,14 @@ nav {
 nav img[alt~=boat] {
   display: block;
   margin: 0 auto;
-  height: 50px;
+  height: 80px;
   width: auto;
 }
 
 nav img[alt~=helmet] {
   display: block;
   margin: 0 auto;
-  height: 50px;
+  height: 80px;
   width: auto;
 }
 
@@ -57,7 +58,7 @@ nav li a {
 header {
   grid-area: header;
   text-align: center;
-  font-size: 35px;
+  font-size: 70px;
 }
 
 #canvas {
@@ -89,13 +90,13 @@ section .centered {
 
 section .paragraph {
   margin: 0.7% 15%;
-  font-size: 25px;
+  font-size: 35px;
   font-family: "Times New Roman", Times, serif;
 }
 
 section .basic {
   margin: 0.7% 15%;
-  font-size: 25px;
+  font-size: 35px;
   font-family: "Times New Roman", Times, serif;
 }
 
@@ -223,8 +224,8 @@ section .basic {
   margin: 10px 10px 10px 10px;
   background-color: rgba(250, 235, 215, 0.7);
   font-family: "Times New Roman", Times, serif;
-  padding: 10px 15px;
-  font-size: 25px;
+  padding: 10px 35px;
+  font-size: 35px;
 }
 
 .aboutRuth {
@@ -233,8 +234,12 @@ section .basic {
   margin: 10px 10px 10px 10px;
   background-color: rgba(251, 219, 178, 0.7);
   font-family: "Times New Roman", Times, serif;
-  padding: 10px 15px;
-  font-size: 25px;
+  padding: 10px 35px;
+  font-size: 35px;
+}
+
+.aboutme {
+  font-size: 55px;
 }
 
 .logout {
@@ -310,12 +315,37 @@ section .basic {
   cursor: pointer;
 }
 
+.Git {
+  grid-area: Git;
+}
+
+.Git img[alt~=King] {
+  display: block;
+  margin: 0 auto;
+  height: 500px;
+  width: auto;
+  margin-top: 50px;
+}
+
+.github {
+  text-align: center;
+}
+
 #solid {
   background-color: rgba(250, 235, 215, 0.7);
   background-image: none;
   background-size: contain;
   width: 100%;
   height: auto;
+  padding-bottom: 40px;
+}
+
+#solid .basic {
+  font-size: 35px;
+}
+
+#solid .paragraph {
+  font-size: 55px;
 }
 
 @media only screen and (max-width: 840px) {
@@ -328,7 +358,7 @@ section .basic {
   }
   #container {
     display: grid;
-    grid-template-areas: "usernameDisplay header logout" "nav nav nav" "announce announce announce" "canvas canvas canvas" "section section section" "registeration registeration registeration" "register register register" "regiserForm regiserForm regiserForm " "ruth ruth ruth" "aboutRuth aboutRuth aboutRuth" "donald donald donald" "aboutDonald aboutDonald  aboutDonald";
+    grid-template-areas: "usernameDisplay header logout" "nav nav nav" "announce announce announce" "canvas canvas canvas" "section section section" "registeration registeration registeration" "register register register" "regiserForm regiserForm regiserForm " "ruth ruth ruth" "aboutRuth aboutRuth aboutRuth" "donald donald donald" "aboutDonald aboutDonald  aboutDonald" "Git Git Git Git";
     width: 100%;
   }
   section {
@@ -403,6 +433,16 @@ section .basic {
   #usernameDisplay {
     grid-area: usernameDisplay;
     color: #452e2e;
+  }
+  .Git {
+    grid-area: Git;
+  }
+  .Git img[alt~=King] {
+    display: block;
+    margin: 0 auto;
+    height: 300px;
+    width: auto;
+    margin-top: 50px;
   }
 }
 #announce {

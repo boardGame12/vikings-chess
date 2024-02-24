@@ -17,7 +17,8 @@ $white:  rgb(255, 255, 255);
                           "ruth ruth ruth ruth ruth ruth donald donald donald donald donald donald"
                           "aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutRuth aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald aboutDonald"
                           "register register register register register register register register register register register register"
-                          "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm";
+                          "regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm regiserForm"
+                          "Git Git Git Git Git Git Git Git Git Git Git Git ";
 
     width: 95%;
     margin: 10px auto;
@@ -32,6 +33,7 @@ $white:  rgb(255, 255, 255);
   nav {
     //display: grid;
     font-family: $main-font;
+    font-size: 30px;
     grid-area: nav;
     padding: 20px;
     text-align: center;
@@ -43,13 +45,13 @@ $white:  rgb(255, 255, 255);
   nav img[alt~=boat] {
     display: block;
     margin: 0 auto;
-    height: 50px;
+    height: 80px;
     width: auto;
   }
   nav img[alt~=helmet] {
     display: block;
     margin: 0 auto;
-    height: 50px;
+    height: 80px;
     width: auto;
   }
   
@@ -76,7 +78,7 @@ $white:  rgb(255, 255, 255);
     //display: grid;
     grid-area: header;
     text-align: center;
-    font-size: 35px;
+    font-size: 70px;
 
   }
   #canvas {
@@ -107,12 +109,12 @@ $white:  rgb(255, 255, 255);
   }
   section .paragraph{
     margin: .7% 15%;
-    font-size: 25px;
+    font-size: 35px;
     font-family:'Times New Roman', Times, serif;
   }
   section .basic{
     margin: .7% 15%;
-    font-size: 25px;
+    font-size: 35px;
     font-family:'Times New Roman', Times, serif;
   }
  
@@ -232,8 +234,8 @@ $white:  rgb(255, 255, 255);
   margin: 10px 10px 10px 10px;
   background-color: $lightbrown;
   font-family: 'Times New Roman', Times, serif;
-  padding: 10px 15px;
-  font-size: 25px;
+  padding: 10px 35px;
+  font-size: 35px;
 }
 .aboutRuth{
   display: grid;
@@ -241,8 +243,11 @@ $white:  rgb(255, 255, 255);
   margin: 10px 10px 10px 10px;
   background-color: $medbrown;
   font-family: 'Times New Roman', Times, serif;
-  padding: 10px 15px;
-  font-size: 25px;
+  padding: 10px 35px;
+  font-size: 35px;
+}
+.aboutme{
+  font-size: 55px;
 }
 .logout{
   grid-area: logout;
@@ -311,6 +316,19 @@ $white:  rgb(255, 255, 255);
   text-decoration: none;
   cursor: pointer;
 }
+.Git{
+  grid-area: Git;
+}
+.Git img[alt~=King] {
+  display: block;
+  margin: 0 auto;
+  height: 500px;
+  width: auto;
+  margin-top: 50px;
+}
+.github{
+  text-align: center;
+}
   
   #solid{
     background-color: rgba(250, 235, 215,.7);
@@ -318,6 +336,13 @@ $white:  rgb(255, 255, 255);
     background-size: contain;
     width: 100%;
     height: auto;
+    padding-bottom: 40px;
+  }
+  #solid .basic{
+    font-size: 35px;
+  }
+  #solid .paragraph{
+    font-size: 55px;
   }
 
   @media only screen and (max-width: 840px) {
@@ -343,7 +368,8 @@ $white:  rgb(255, 255, 255);
             "ruth ruth ruth"
             "aboutRuth aboutRuth aboutRuth"
             "donald donald donald"
-            "aboutDonald aboutDonald  aboutDonald";
+            "aboutDonald aboutDonald  aboutDonald"
+            "Git Git Git Git";
         width: 100%;
     }
     section{
@@ -421,6 +447,16 @@ $white:  rgb(255, 255, 255);
     #usernameDisplay{
       grid-area: usernameDisplay;
       color: $darkbrown;
+    }
+    .Git{
+      grid-area: Git;
+    }
+    .Git img[alt~=King] {
+      display: block;
+      margin: 0 auto;
+      height: 300px;
+      width: auto;
+      margin-top: 50px;
     }
 }
 
